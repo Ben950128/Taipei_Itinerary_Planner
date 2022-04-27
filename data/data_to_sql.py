@@ -35,7 +35,7 @@ for i in range(len(data["data"])):
 # 	address = data_with_img[i]["address"]
 # 	tell = data_with_img[i]["tel"]
 
-# 	sql = "insert into attractions(Location_ID, Name, Introduction, Address, Tell) values(%s, %s, %s, %s, %s)"
+# 	sql = "insert into attractions(Attraction_ID, Name, Introduction, Address, Tell) values(%s, %s, %s, %s, %s)"
 # 	val = (id, name, introduction, address, tell)
 # 	cursor.execute(sql,val)
 # 	print("success")
@@ -46,7 +46,7 @@ for i in range(len(data["data"])):
 # 	distric = data_with_img[i]["distric"]
 # 	id = data_with_img[i]["id"]
 
-# 	sql = "insert into distric(Distric, Location_ID) values(%s, %s)"
+# 	sql = "insert into distric(Distric, Attraction_ID) values(%s, %s)"
 # 	val = (distric, id)
 # 	cursor.execute(sql,val)
 # 	print("success")
@@ -58,7 +58,7 @@ for i in range(len(data["data"])):
 # 	long = data_with_img[i]["elong"]
 # 	id = data_with_img[i]["id"]
 
-# 	sql = "insert into lat_long(Latitude, Longitude, Location_ID) values(%s, %s, %s)"
+# 	sql = "insert into lat_long(Latitude, Longitude, Attraction_ID) values(%s, %s, %s)"
 # 	val = (lat, long, id)
 # 	cursor.execute(sql,val)
 # 	print("success")
@@ -71,7 +71,7 @@ for i in range(len(data["data"])):
 # 	print(id, "\t", name)
 # 	for k in range(len(data_with_img[j]["images"])):
 # 		img = data_with_img[j]["images"][k]["src"]
-# 		sql = "insert into images(Name, Image, Location_ID) values(%s, %s, %s)"
+# 		sql = "insert into images(Name, Image, Attraction_ID) values(%s, %s, %s)"
 # 		val = (name, img, id)
 # 		cursor.execute(sql,val)
 # 		print(img)
@@ -84,7 +84,7 @@ for i in range(len(data["data"])):
 # 	print(id, "\t", name)
 # 	for m in range(len(data_with_img[n]["category"])):
 # 		cate = data_with_img[n]["category"][m]["name"]
-# 		sql = "insert into category(Name, Category, Location_ID) values(%s, %s, %s)"
+# 		sql = "insert into category(Name, Category, Attraction_ID) values(%s, %s, %s)"
 # 		val = (name, cate, id)
 # 		cursor.execute(sql,val)
 # 		print(cate)

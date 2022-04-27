@@ -2,7 +2,7 @@ create database taipei_tourism;
   
 # 創建attractions基本表格
 CREATE TABLE  `attractions` (
-  `Location_ID` INT NOT NULL COMMENT 'Attraction_ID' PRIMARY KEY,
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID' PRIMARY KEY,
   `Number` INT NOT NULL AUTO_INCREMENT COMMENT 'Number' UNIQUE,
   `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
   `Introduction` TEXT COMMENT 'Attraction_Introduction',
@@ -12,24 +12,24 @@ describe attractions;
 select * from attractions;
 select count(*) from attractions;
 
-select Location_ID, Name, Introduction, Address, Tell 
+select Attraction_ID, Name, Introduction, Address, Tell 
 from attractions
-where Number between 361 and 372;
+where Number between 25 and 36;
 
 
 # 創建attractions_Distric表格
 CREATE TABLE  `distric` (
   `Distric_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Distric` VARCHAR(10) COMMENT 'Attraction_Distric',
-  `Location_ID` INT NOT NULL COMMENT 'Attraction_ID',
-  FOREIGN KEY(`Location_ID`)  REFERENCES `attractions`(`Location_ID`) ON DELETE CASCADE);
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 describe distric;
 select * from distric;
 select count(*) from distric;
 
 select * from distric 
-where Location_ID in (
-	select Location_ID from attractions
+where Attraction_ID in (
+	select Attraction_ID from attractions
     where Number between 1 and 12
 );
 
@@ -39,15 +39,15 @@ CREATE TABLE  `lat_long` (
   `Lat_Long_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Latitude` DOUBLE COMMENT 'Attraction_Latitude',
   `Longitude` DOUBLE COMMENT 'Attraction_Longitude',
-  `Location_ID` INT NOT NULL COMMENT 'Attraction_ID',
-  FOREIGN KEY(`Location_ID`)  REFERENCES `attractions`(`Location_ID`) ON DELETE CASCADE);
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 describe lat_long;
 select * from lat_long;
 select count(*) from lat_long;
 
 select * from lat_long 
-where Location_ID in (
-	select Location_ID from attractions
+where Attraction_ID in (
+	select Attraction_ID from attractions
     where Number between 1 and 12
 );
 
@@ -57,15 +57,15 @@ CREATE TABLE  `images` (
   `Image_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
   `Image` TEXT NOT NULL COMMENT 'Attraction_Image',
-  `Location_ID` INT NOT NULL COMMENT 'Attraction_ID',
-  FOREIGN KEY(`Location_ID`)  REFERENCES `attractions`(`Location_ID`) ON DELETE CASCADE);
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 describe images;
 select * from images;
 select count(*) from images;
 
 select * from images 
-where Location_ID in (
-	select Location_ID from attractions
+where Attraction_ID in (
+	select Attraction_ID from attractions
     where Number = 1
 );
 
@@ -74,8 +74,8 @@ CREATE TABLE  `category` (
   `Category_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Category_ID' PRIMARY KEY,
   `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
   `Category` TEXT NOT NULL COMMENT 'Attraction_Image',
-  `Location_ID` INT NOT NULL COMMENT 'Attraction_ID',
-  FOREIGN KEY(`Location_ID`)  REFERENCES `attractions`(`Location_ID`) ON DELETE CASCADE);
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 describe category;
 select * from category;
 select count(*) from category;
