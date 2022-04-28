@@ -1,24 +1,26 @@
 from flask import Blueprint, request, jsonify
-import mysql.connector
+from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
 
 attractions = Blueprint("attractions", __name__, template_folder="templates")
 load_dotenv()
 MYSQL_DB_PASSWORD = os.getenv('MYSQL_DB_PASSWORD')
-
+connection_pool = pooling.MySQLConnectionPool(
+    pool_name="mysql_pool",
+    pool_size=5,
+    pool_reset_session=True,
+    host='localhost',
+    database='taipei_tourism',
+    user='root',
+    password=MYSQL_DB_PASSWORD
+)
 
 # -------------依照分頁輸出景點資料------------------
 @attractions.route("/attractions", methods=["GET"])
 def search_attractions_by_page():
-    connection = mysql.connector.connect(
-        host="localhost",
-        port="3306",
-        user="root",
-        password=MYSQL_DB_PASSWORD,
-        database="taipei_tourism"
-    )
-    cursor = connection.cursor()
+    connection_object1 = connection_pool.get_connection()
+    cursor = connection_object1.cursor()
     page = int(request.args.get("page"))
 
     # 抓取景點資料
@@ -126,21 +128,15 @@ def search_attractions_by_page():
         return response, 500
     
     finally:
-        cursor.close
-        connection.close
+        cursor.close()
+        connection_object1.close()
 
 
 # ---------------依照景點ID輸出景點資料----------------
 @attractions.route("/attractions/<attractionID>", methods=["GET"])
 def search_attractions_by_ID(attractionID):
-    connection = mysql.connector.connect(
-        host="localhost",
-        port="3306",
-        user="root",
-        password=MYSQL_DB_PASSWORD,
-        database="taipei_tourism"
-    )
-    cursor = connection.cursor()
+    connection_object2 = connection_pool.get_connection()
+    cursor = connection_object2.cursor()
     Number = (attractionID,)
 
     try:
@@ -224,5 +220,5 @@ def search_attractions_by_ID(attractionID):
         return "Server shut down", 500
 
     finally:
-        cursor.close
-        connection.close
+        cursor.close()
+        connection_object2.close()
