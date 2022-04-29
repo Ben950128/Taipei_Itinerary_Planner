@@ -11,7 +11,7 @@ app.secret_key = "login"
 # 建立路徑/對應的處理函式，為網站首頁
 @app.route("/")
 def index():
-	return "Hello"
+	return render_template("attraction.html")
 
 
 # 啟動網站伺服器，可透過port參數設定指定埠號
