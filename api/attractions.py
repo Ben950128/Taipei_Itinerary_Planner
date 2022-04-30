@@ -1,4 +1,3 @@
-from unicodedata import category
 from flask import Blueprint, request, jsonify
 from mysql.connector import pooling
 from dotenv import load_dotenv
