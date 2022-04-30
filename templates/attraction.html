@@ -3,13 +3,45 @@
 <head>
 	<meta charset="utf-8"></meta>
 	<meta name = "viewport" content = "width=device-width,initial-scale=1,maximum-scale=1"/>
-	<title>Taipei_Travel</title>
+	<title>Taipei Itinerary Planner</title>
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 </head>
-<body>
-    <div>
-        <button onclick="search_click()">click</button>
-    </div>
+<body onload = "get_data()">
+	<div style = "display: flex; margin: 5px;">
+		<div class = "taipei_block">
+			<span class = "taipei_font">台北旅遊</span>
+		</div>
+		<div class = "login_block">
+			<div class = "login_font">登入/註冊</div>
+		</div>
+	</div>
+
+    <!-- 101背景區域 -->
+	<div class = "taipei101_background">
+        <div class = "title">Let's Go  Explore  Taipei</div>
+        <div style="display: flex; margin-top: 40px;">
+            <input type="text" id = "search_attraction" class="search_attraction_input" placeholder="請輸入景點名稱"/>
+            <button class="search_attraction_buttun" onclick="search_attraction_click()">
+                <img src="../static/img/icon_search.png" width="70%">
+            </button>
+        </div>
+
+        <div style = 'margin-top: 25px; margin-left: 20px'>
+            <select class = 'select_distric' name="pets">
+                <option value="">- - 請選擇區域 - -</option>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                <option value="hamster">Hamster</option>
+                <option value="parrot">Parrot</option>
+                <option value="spider">Spider</option>
+                <option value="goldfish">Goldfish</option>
+            </select>
+        </div>
+	</div>
+
+    <!-- 景點圖片區 -->
+    <div id = "attraction_line"></div>
+
     <script src="{{ url_for('static',filename='js/api.js') }}"></script>
 </body>
 <html>

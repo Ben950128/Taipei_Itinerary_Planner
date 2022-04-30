@@ -226,8 +226,8 @@ def search_attractions_by_ID(attractionID):
         connection_object2.close()
 
 
-# -------------依照分類輸出景點資料------------------
-@attractions.route("/attractions/category", methods=["GET"])
+# -------------依照行政區輸出景點資料------------------
+@attractions.route("/attractions/distric", methods=["GET"])
 def search_attractions_by_category():
     connection_object3 = connection_pool.get_connection()
     cursor = connection_object3.cursor()
@@ -241,7 +241,7 @@ def search_attractions_by_category():
 
         sql_attr = ("""select Attraction_ID, Name, Introduction, Address, Tell 
                         from attractions where Attraction_ID in (
-                            select Attraction_ID from category where category = %s
+                            select Attraction_ID from distric where distric = %s
                         ) order by Attraction_ID limit %s, 12""")
         cursor.execute(sql_attr, Number)
         attr_records = cursor.fetchall()
@@ -254,7 +254,7 @@ def search_attractions_by_category():
         # 抓取地區資料
         sql_attr = ("""select Distric from distric 
                     where Attraction_ID in (
-                        select Attraction_ID from category where category = %s
+                        select Attraction_ID from distric where distric = %s
                     ) order by Attraction_ID limit %s, 12""")
         cursor.execute(sql_attr, Number)
         Distric_records = cursor.fetchall()
@@ -262,7 +262,7 @@ def search_attractions_by_category():
         # 抓取經緯度資料
         sql_attr = ("""select Latitude, Longitude from lat_long 
                     where Attraction_ID in (
-                        select Attraction_ID from category where category = %s
+                        select Attraction_ID from distric where distric = %s
                     ) order by Attraction_ID limit %s, 12""")
         cursor.execute(sql_attr, Number)
         lat_long_records = cursor.fetchall()
@@ -270,7 +270,7 @@ def search_attractions_by_category():
         # 抓取景點照片(用上面的loc_id_list，將每個Attraction_ID的照片放進來變成字典)
         sql_img = ("""select Attraction_ID, Image from images 
                     where Attraction_ID in (
-                        select Attraction_ID from category where category = %s
+                        select Attraction_ID from distric where distric = %s
                     ) order by Attraction_ID""")
 
         cursor.execute(sql_img, img_cate_data)
@@ -287,7 +287,7 @@ def search_attractions_by_category():
         # 抓取景點類別
         sql_cate = ("""select Attraction_ID, Category from category 
                         where Attraction_ID in (
-                            select Attraction_ID from category where category = %s
+                            select Attraction_ID from distric where distric = %s
                     ) order by Attraction_ID""")
 
         cursor.execute(sql_cate, img_cate_data)
