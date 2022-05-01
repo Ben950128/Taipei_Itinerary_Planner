@@ -4,43 +4,79 @@ body {margin:0px;background-color:#F8F8FF}
 
 /* class選擇器 */
 .taipei_block {
-    display: flex; justify-content: center; align-items: center;
+    display: flex; margin-left: 10px; cursor: pointer;
 }
 .taipei_font {
-    font-size: 25px; font-family: 'Noto Sans TC', sans-serif; color: #4e7cbcf0;
+    font-size: 28px; font-family: 'Noto Sans TC', sans-serif; color: #4e7cbcf0;
 }
 .login_block {
     flex: 1; display: flex; justify-content: flex-end; align-items: center;
 }
 .login_font {
-    font-size:16px; margin-right:10px
+    font-size:18px; margin-right:10px;
+    display: inline-block; vertical-align: middle; position: relative; cursor: pointer;
+}
+.shape-line {
+    width: 0%; height: 1px; background-color: rgb(0, 0, 0); position: absolute;
+    bottom: 0; left: 0; transition: all .3s linear;
+}
+.login_font:hover .shape-line{
+    width: 100%;
 }
 .taipei101_background {
     background-image: url(../img/101.jpg); max-width: 100%;
     height: 450px; background-size: cover; background-position: center;filter: grayscale(20%);
 }
-.title {
-    font-size: 28px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 20px
+.welcome_title {
+    font-size: 32px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 40px
 }
 .search_attraction_input {
-    width: 250px; margin-left: 20px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: none;
+    font-size: 17px; width: 270px; margin-left: 40px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: none;
 }
 .search_attraction_buttun {
-    background-color: #7eb5c7; height: 3em; width: 50px; 
+    background-color: #618ae3; height: 3em; width: 50px; 
     border-top-right-radius: 5px; border-bottom-right-radius: 5px; border: none; cursor: pointer;
 }
+.search_attraction_buttun:hover {
+    background-color: rgb(114, 161, 236);
+}
+.select_box {
+    margin: 35px; width: 100%; display: flex; justify-content: center; align-items: center;
+}
 .select_distric {
-    font-size: 18px; border-radius: 5px; height: 2em; width: 180px;
+    font-size: 18px; text-align: center; border-radius: 5px; height: 2em; width: 300px; border: 1px rgba(127, 127, 140, 0.615) solid;
+}
+.select_distric:hover {
+    opacity: 0.7;
 }
 #attraction_line {
     display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
-    outline: rgb(243, 18, 18) solid;
 }
 .img_box {
-    aspect-ratio: 5/4; display: flex; flex: none; flex-wrap: wrap; justify-content: center;
-    width: 270px; background-color:#ADD8E6; margin:10px; border-radius: 5px;
+    aspect-ratio: 1/1; display: flex; flex: none; flex-wrap: wrap;
+    width: 270px; margin:10px; border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; overflow: hidden; cursor: pointer;
 }
-.pic{ flex: none; width: 100%; height: 85%; border-top-left-radius: 5px; border-top-right-radius: 5px;}
+.attr_image { 
+    flex: none; width: 100%; height: 70%; border-top-left-radius: 5px; border-top-right-radius: 5px;
+    transform: scale(1.03, 1.03); transition: all 0.3s ease-out;
+}
+.img_box:hover .attr_image {
+    transform: scale(1.07, 1.07);
+}
+.name_distric_box {
+    width: 100%; display: flex;
+}
+.attr_left {
+    padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
+}
+.attr_right {
+    flex: 1; text-align: end; padding-right: 8px; font-weight: bold; color: rgb(63, 63, 71)
+}
+
+
+
+
 
 
 @media screen and (max-width:1200px){
