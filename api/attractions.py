@@ -22,6 +22,11 @@ connection_pool = pooling.MySQLConnectionPool(
 def search_attractions_by_page():
     connection_object1 = connection_pool.get_connection()
     cursor = connection_object1.cursor()
+    # 抓總頁數
+    cursor.execute("select count(*) from attractions;")
+    all_attr_records = cursor.fetchall()
+    all_data = all_attr_records[0][0]
+    all_page = (all_data//12) + 1
 
     # 抓取景點資料
     try:
@@ -113,6 +118,7 @@ def search_attractions_by_page():
 
         response = {
             "ThisPage": page,
+            "AllPage": all_page,
             "Data": page_datas
         }
 
@@ -232,10 +238,21 @@ def search_attractions_by_category():
     connection_object3 = connection_pool.get_connection()
     cursor = connection_object3.cursor()
 
-    # 抓取景點資料
     try:
         keyword = request.args.get("keyword")
         page = int(request.args.get("page"))
+        # 抓該景點的總頁數
+        All_Page_Number = (keyword,)
+        sql_attr = ("""select count(*)
+                        from attractions where Attraction_ID in (
+                        select Attraction_ID from distric where distric = %s
+                        )""")
+        cursor.execute(sql_attr, All_Page_Number)
+        all_attr_records = cursor.fetchall()
+        all_data = all_attr_records[0][0]
+        all_page = (all_data//12) + 1
+
+        # 抓取景點資料
         Number = (keyword, page*12-12)          # for景點、地區、經緯度資料的sql
         img_cate_data = (keyword,)              # for照片跟類別的sql
 
@@ -321,6 +338,7 @@ def search_attractions_by_category():
 
         response = {
             "ThisPage": page,
+            "AllPage": all_page,
             "Data": page_datas
         }
 

@@ -6,7 +6,7 @@
 	<title>Taipei Itinerary Planner</title>
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 </head>
-<body onload = "get_data()">
+<body onload = "first_page()">
 	<div style = "display: flex; margin: 5px;">
 		<div class = "taipei_block">
 			<span class = "taipei_font">台北旅遊</span>
@@ -30,10 +30,10 @@
 	</div>
 
     <!-- 景點圖片區 -->
-    <div id = "attraction_line">
+    <div id = "main_line">
         <div class="select_box">
             <select class = 'select_distric' name="distinct">
-                <option value="">- - 請選擇區域 - -</option>    
+                <option selected disabled>- - 請選擇區域 - -</option>    
                 <option value="士林區">士林區</option>
                 <option value="松山區">松山區</option>
                 <option value="信義區">信義區</option>
@@ -48,6 +48,10 @@
                 <option value="文山區">文山區</option>
             </select>
         </div>
+    </div>
+    <div class="page_line">
+        <button style="display: none" id="previous_page_icon" onclick = "previous_page()">上一頁</button>
+        <button id="next_page_icon" onclick = "next_page()">下一頁</button>
     </div>
 
     <script src="{{ url_for('static',filename='js/api.js') }}"></script>

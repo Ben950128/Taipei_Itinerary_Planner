@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap');
 /* 標籤選擇器 */
-body {margin:0px;background-color:#F8F8FF}
+body { margin:0px;background-color:#F8F8FF }
 
 /* class選擇器 */
+/* 頂部白色區 */
 .taipei_block {
     display: flex; margin-left: 10px; cursor: pointer;
 }
@@ -23,6 +24,8 @@ body {margin:0px;background-color:#F8F8FF}
 .login_font:hover .shape-line{
     width: 100%;
 }
+
+/* 以下為背景為101照片區 */
 .taipei101_background {
     background-image: url(../img/101.jpg); max-width: 100%;
     height: 450px; background-size: cover; background-position: center;filter: grayscale(20%);
@@ -40,6 +43,15 @@ body {margin:0px;background-color:#F8F8FF}
 .search_attraction_buttun:hover {
     background-color: rgb(114, 161, 236);
 }
+
+/* 以下為選擇行政區及景點照片區 */
+#main_line {
+    display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
+}
+#attraction_line {
+    display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
+}
+/* 選擇行政區 */
 .select_box {
     margin: 35px; width: 100%; display: flex; justify-content: center; align-items: center;
 }
@@ -49,9 +61,7 @@ body {margin:0px;background-color:#F8F8FF}
 .select_distric:hover {
     opacity: 0.7;
 }
-#attraction_line {
-    display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
-}
+/* 景點照片區 */
 .img_box {
     aspect-ratio: 1/1; display: flex; flex: none; flex-wrap: wrap;
     width: 270px; margin:10px; border-radius: 5px; 
@@ -59,7 +69,7 @@ body {margin:0px;background-color:#F8F8FF}
 }
 .attr_image { 
     flex: none; width: 100%; height: 70%; border-top-left-radius: 5px; border-top-right-radius: 5px;
-    transform: scale(1.03, 1.03); transition: all 0.3s ease-out;
+    transform: scale(1, 1); transition: all 0.3s ease-out;
 }
 .img_box:hover .attr_image {
     transform: scale(1.07, 1.07);
@@ -67,11 +77,17 @@ body {margin:0px;background-color:#F8F8FF}
 .name_distric_box {
     width: 100%; display: flex;
 }
-.attr_left {
+.name_left {
+    padding-left: 8px; max-width: 200px; font-weight: bold; color: rgb(63, 63, 71)
+}
+.distinct_right {
+    flex: 1; text-align: end; padding-right: 8px; font-weight: bold; color: rgb(63, 63, 71)
+}
+.category_left {
     padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
 }
-.attr_right {
-    flex: 1; text-align: end; padding-right: 8px; font-weight: bold; color: rgb(63, 63, 71)
+.page_line {
+    display: flex; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; outline: red solid;
 }
 
 
@@ -80,14 +96,17 @@ body {margin:0px;background-color:#F8F8FF}
 
 
 @media screen and (max-width:1200px){
-    #attraction_line{width:90%}
+    #main_line{width:90%}
     .img_box{width:45%}
     .pic{width:100%;height:80%}
+    .page_line{width:90%}
 }
 @media screen and (max-width:600px){
-    #attraction_line{width:90%}
-    .img_box{width:100%}
+    #main_line{width:90%}
+    .img_box{width:90%}
     .pic{width:100%;height:80% }
+    .page_line{width:90%}
+    .search_attraction_input{width:200px }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
     }
