@@ -1,11 +1,22 @@
-// controller
 let page_now = 1;
+let click_paging = document.querySelectorAll(".paging_icon")
+click_paging.forEach(item => {
+    item.addEventListener('click', event => {
+        click_page = parseInt(event.target.textContent)
+        specify_page(click_page)
+    })
+})
+
+// --------------------------------------------------controller--------------------------------------------------
+// 取得第一頁資料
 async function first_page(){
     url = "api/attractions?page=1";
     promise_datas = await fetch_data(url);
     datas = promise_datas.Data;
     render(datas);
 }
+
+// 取得下一頁資料
 async function next_page(){
     page_now = page_now + 1;
     url = "api/attractions?page=" + String(page_now);
@@ -14,12 +25,10 @@ async function next_page(){
     reset_render();
     render(datas);
     window.scrollTo({top: 400, behavior: 'smooth'});
-    show_previous_page_icon();
-    if (page_now === promise_datas.AllPage){
-        delete_next_page_icon()
-    }
+    next_previous_icon(promise_datas.AllPage)
 }
 
+// 取得上一頁資料
 async function previous_page(){
     page_now = page_now - 1;
     url = "api/attractions?page=" + String(page_now);
@@ -28,14 +37,36 @@ async function previous_page(){
     reset_render();
     render(datas);
     window.scrollTo({top: 400, behavior: 'smooth'});
-    show_next_page_icon();
+    next_previous_icon(promise_datas.AllPage)
+}
+
+// 取得指定頁面資料
+async function specify_page(click_page){
+    page_now = click_page
+    url = "api/attractions?page=" + String(page_now);
+    promise_datas = await fetch_data(url);
+    datas = promise_datas.Data;
+    reset_render();
+    render(datas);
+    window.scrollTo({top: 400, behavior: 'smooth'});
+    next_previous_icon(promise_datas.AllPage)
+}
+
+// 下一頁跟上一頁的按鈕顯示
+function next_previous_icon(limit_page) {
     if (page_now === 1){
         delete_previous_page_icon()
     }
+    if (page_now === limit_page){
+        delete_next_page_icon()
+    }
+    if (page_now !==1 && page_now !== limit_page){
+        show_previous_page_icon();
+        show_next_page_icon();
+    }
 }
 
-
-// model
+// --------------------------------------------------model--------------------------------------------------
 // 根據URL取資料
 function fetch_data(){
     return fetch(url)
@@ -47,8 +78,8 @@ function fetch_data(){
     })
 }
 
-// view
-// 秀出資料
+// --------------------------------------------------view--------------------------------------------------
+// 秀該頁出資料
 function render(datas){
     let main_line = document.getElementById("main_line");
     let attraction_line = document.createElement("div");

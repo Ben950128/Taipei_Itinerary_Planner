@@ -24,7 +24,7 @@
         <div style="display: flex; margin-top: 65px;">
             <input type="text" id = "search_attraction" class="search_attraction_input" placeholder="  請輸入景點名稱"/>
             <button class="search_attraction_buttun" onclick="search_attraction_click()">
-                <img src="../static/img/icon_search.png" width="65%">
+                <img src="../static/img/icon_search.png" width="60%">
             </button>
         </div>
 	</div>
@@ -49,10 +49,20 @@
             </select>
         </div>
     </div>
-    <div class="page_line">
-        <button style="display: none" id="previous_page_icon" onclick = "previous_page()">上一頁</button>
-        <button id="next_page_icon" onclick = "next_page()">下一頁</button>
+
+    <div class="page_icon_box">
+        <div class="previous_page_icon" id="previous_page_icon" onclick = "previous_page()">上一頁</div>
+        <div class="paging_icon">2</div>
+        <div class="paging_icon">3</div>
+        <div class="paging_icon">4</div>
+        <div class="paging_icon">5</div>
+        <div class="paging_icon">6</div>
+        <div class="next_page_icon" id="next_page_icon" onclick = "next_page()">下一頁</div>
     </div>
+
+    <footer class="page_bottom">
+        <div>資料來源 : 臺北旅遊網 Open API</div>
+    </footer>
 
     <script src="{{ url_for('static',filename='js/api.js') }}"></script>
 </body>

@@ -56,7 +56,8 @@ body { margin:0px;background-color:#F8F8FF }
     margin: 35px; width: 100%; display: flex; justify-content: center; align-items: center;
 }
 .select_distric {
-    font-size: 18px; text-align: center; border-radius: 5px; height: 2em; width: 300px; border: 1px rgba(127, 127, 140, 0.615) solid;
+    font-size: 18px; text-align: center; border-radius: 5px; height: 2em; width: 300px; 
+    border: 1px rgba(127, 127, 140, 0.615) solid;
 }
 .select_distric:hover {
     opacity: 0.7;
@@ -86,10 +87,30 @@ body { margin:0px;background-color:#F8F8FF }
 .category_left {
     padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
 }
-.page_line {
-    display: flex; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; outline: red solid;
+.page_icon_box {
+    display: flex; justify-content:center; width: 1200px; margin: 30px auto 30px auto;
+}
+.previous_page_icon {
+    display: none; padding: 1px 3px 1px 3px;; border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+}
+.next_page_icon {
+    margin-left: 10px; padding: 1px 3px 1px 3px; border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+}
+.paging_icon {
+    margin-left: 10px; padding: 1px 7px 1px 7px; border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+}
+.previous_page_icon:hover, .next_page_icon:hover, .paging_icon:hover {
+    background-color: rgb(240, 245, 251);
 }
 
+/* 底部配色 */
+.page_bottom {
+    display: flex; justify-content: center; align-items: center;
+    background-color: #427bac; width: 100%; height: 100px; color: white
+}
 
 
 
@@ -99,13 +120,13 @@ body { margin:0px;background-color:#F8F8FF }
     #main_line{width:90%}
     .img_box{width:45%}
     .pic{width:100%;height:80%}
-    .page_line{width:90%}
+    .page_icon_box{width:90%}
 }
 @media screen and (max-width:600px){
     #main_line{width:90%}
     .img_box{width:90%}
     .pic{width:100%;height:80% }
-    .page_line{width:90%}
+    .page_icon_box{width:90%}
     .search_attraction_input{width:200px }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */

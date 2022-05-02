@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, render_template, request, jsonify
 from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
