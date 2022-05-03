@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
+import math
 
 attractions = Blueprint("attractions", __name__, template_folder="templates")
 load_dotenv()
@@ -26,7 +27,7 @@ def search_attractions_by_page():
     cursor.execute("select count(*) from attractions;")
     all_attr_records = cursor.fetchall()
     all_data = all_attr_records[0][0]
-    all_page = (all_data//12) + 1
+    all_page = math.ceil(all_data/12)
 
     # 抓取景點資料
     try:
@@ -250,7 +251,7 @@ def search_attractions_by_category():
         cursor.execute(sql_attr, All_Page_Number)
         all_attr_records = cursor.fetchall()
         all_data = all_attr_records[0][0]
-        all_page = (all_data//12) + 1
+        all_page = math.ceil(all_data/12)
 
         # 抓取景點資料
         Number = (keyword, page*12-12)          # for景點、地區、經緯度資料的sql

@@ -1,67 +1,83 @@
 let page_now = 1;
-let click_paging = document.querySelectorAll(".page_icon")
+let click_paging = document.querySelectorAll(".page_icon");
+let select_distric = document.getElementById("select_distric");
+
+// 分頁頁碼的addEventListener
 click_paging.forEach(item => {
     item.addEventListener('click', event => {
-        click_page = event.target.textContent
-        specify_page(click_page)
+        let click_page_textContent = event.target.textContent;
+        specify_page(click_page_textContent);
     })
+})
+
+// 選擇行政區的addEventListener，選擇行政區當下頁數從第一頁開始
+select_distric.addEventListener('change', () => {
+    page = 1
+    specify_page(page)
 })
 
 // --------------------------------------------------controller--------------------------------------------------
 // 取得第一頁資料
 async function first_page() {
-    url = "api/attractions?page=1";
-    promise_datas = await fetch_data(url);
-    datas = promise_datas.Data;
+    let url = "api/attractions?page=1";
+    let promise_datas = await fetch_data(url);
+    let datas = promise_datas.Data;
     render(datas);
 }
 
 // 取得指定頁面資料
-async function specify_page(click_page) {
-    determine_page(click_page)
-    url = "api/attractions?page=" + String(page_now);
-    promise_datas = await fetch_data(url);
-    datas = promise_datas.Data;
-    max_page = promise_datas.AllPage
-    change_page_icon(max_page)
+async function specify_page(click_page_textContent) {
+    page_now = determine_page(click_page_textContent);
+    if (select_distric.value === "- - 請選擇區域 - -") {
+        url = "api/attractions?page=" + String(page_now);
+    }
+    else {
+        url = "api/attractions/distric?page=" + String(page_now) + "&keyword=" + select_distric.value;
+    }
+    let promise_datas = await fetch_data(url);
+    let datas = promise_datas.Data;
+    let max_page = promise_datas.AllPage;
+    change_page_icon_number(max_page);
     reset_render();
     render(datas);
+    next_previous_display_icon(max_page);
     window.scrollTo({top: 400, behavior: 'smooth'});
-    next_previous_icon(max_page)
 }
 
 // 判斷下一頁跟上一頁的按鈕是否要顯示
-function next_previous_icon(max_page) {
+function next_previous_display_icon(max_page) {
     if (page_now === 1){
-        delete_previous_page_icon()
+        delete_previous_page_icon();
+        show_next_page_icon();
     }
-    if (page_now === max_page){
-        delete_next_page_icon()
+    else if (page_now === max_page){
+        show_previous_page_icon();
+        delete_next_page_icon();
     }
-    if (page_now !==1 && page_now !== max_page){
+    else {
         show_previous_page_icon();
         show_next_page_icon();
     }
 }
 
-// 按下分頁、上一頁、下一頁按鈕後判斷傳入哪一頁的資料
-function determine_page(click_page) {
-    if (click_page === "上一頁") {
+// 按下分頁、上一頁、下一頁按鈕後判斷需載入哪一頁的資料
+function determine_page(click_page_textContent) {
+    if (click_page_textContent === "上一頁") {
         page_now = page_now - 1;
     }
-    else if(click_page === "下一頁") {
+    else if(click_page_textContent === "下一頁") {
         page_now = page_now + 1;
     }
     else {
-        click_page = parseInt(click_page)
-        page_now = click_page
+        let int_click_page_textContent = parseInt(click_page_textContent);
+        page_now = int_click_page_textContent;
     }
     return page_now
 }
 
 // --------------------------------------------------model--------------------------------------------------
 // 根據URL取資料
-function fetch_data() {
+function fetch_data(url) {
     return fetch(url)
     .then(function(response) {
         return response.json()
@@ -90,7 +106,7 @@ function render(datas) {
         attraction_img.setAttribute("class", "attr_image");
         name_distric_box.setAttribute("class", "name_distric_box");
         attraction_name.setAttribute("class", "name_left");
-        attraction_distric.setAttribute("class", "distinct_right");
+        attraction_distric.setAttribute("class", "district_right");
         attraction_category.setAttribute("class", "category_left");
 
         data_img = datas[i].Image[0];
@@ -151,19 +167,19 @@ function show_previous_page_icon() {
 }
 
 // 更改分頁頁碼
-function change_page_icon(max_page) {
-    let change_page_icons = document.querySelectorAll(".page_icon.specify_page")
-    modify_number = -2
-    for (let i=0; i<5; i++) {
-        change_page_icons[i].textContent = page_now + modify_number
+function change_page_icon_number(max_page) {
+    let change_page_icon_number = document.querySelectorAll(".page_icon.specify_page")
+    let modify_number = -3
+    for (let i=0; i<7; i++) {
+        change_page_icon_number[i].textContent = page_now + modify_number
         modify_number++
-        page_icon_text = change_page_icons[i].textContent
+        let page_icon_text = change_page_icon_number[i].textContent
         if (page_icon_text < 1 || page_icon_text > max_page) {
-            change_page_icons[i].style.display = 'none'
+            change_page_icon_number[i].style.display = 'none'
         }
         else {
-            change_page_icons[i].style.display = 'block'
+            change_page_icon_number[i].style.display = 'block'
         }
     }
-    change_page_icons[2].style.backgroundColor = '#deecf5';
+    change_page_icon_number[3].style.backgroundColor = '#deecf5';
 }

@@ -31,10 +31,10 @@ body { margin:0px;background-color:#F8F8FF }
     height: 450px; background-size: cover; background-position: center;filter: grayscale(20%);
 }
 .welcome_title {
-    font-size: 32px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 40px
+    font-size: 32px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 45px
 }
 .search_attraction_input {
-    font-size: 17px; width: 270px; margin-left: 40px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: none;
+    font-size: 17px; width: 270px; margin-left: 45px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: none;
 }
 .search_attraction_buttun {
     background-color: #618ae3; height: 3em; width: 50px; 
@@ -55,11 +55,11 @@ body { margin:0px;background-color:#F8F8FF }
 .select_box {
     margin: 35px; width: 100%; display: flex; justify-content: center; align-items: center;
 }
-.select_distric {
+#select_distric {
     font-size: 18px; text-align: center; border-radius: 5px; height: 2em; width: 300px; 
-    border: 1px rgba(127, 127, 140, 0.615) solid;
+    border: 1px rgba(127, 127, 140, 0.615) solid; cursor: pointer;
 }
-.select_distric:hover {
+#select_distric:hover {
     opacity: 0.7;
 }
 /* 景點照片區 */
@@ -69,11 +69,11 @@ body { margin:0px;background-color:#F8F8FF }
     border:1px rgba(127, 127, 140, 0.351) solid; overflow: hidden; cursor: pointer;
 }
 .attr_image { 
-    flex: none; width: 100%; height: 70%; border-top-left-radius: 5px; border-top-right-radius: 5px;
+    flex: none; width: 100%; height: 68%; border-top-left-radius: 5px; border-top-right-radius: 5px;
     transform: scale(1, 1); transition: all 0.3s ease-out;
 }
 .img_box:hover .attr_image {
-    transform: scale(1.05, 1.05);
+    transform: scale(1.06, 1.06);
 }
 .name_distric_box {
     width: 100%; display: flex; margin-top: 5px;
@@ -81,7 +81,7 @@ body { margin:0px;background-color:#F8F8FF }
 .name_left {
     padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
 }
-.distinct_right {
+.district_right {
     flex: 1; text-align: end; padding-right: 8px; min-width: 70px; font-weight: bold; color: rgb(63, 63, 71)
 }
 .category_left {
@@ -126,7 +126,7 @@ body { margin:0px;background-color:#F8F8FF }
     #main_line{width:90%}
     .img_box{width:90%}
     .pic{width:100%;height:80% }
-    .page_icon_box{width:90%}
+    .page_icon_box{width:97%}
     .search_attraction_input{width:200px }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
