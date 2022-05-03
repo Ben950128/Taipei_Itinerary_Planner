@@ -64,7 +64,7 @@ body { margin:0px;background-color:#F8F8FF }
 }
 /* 景點照片區 */
 .img_box {
-    aspect-ratio: 1/1; display: flex; flex: none; flex-wrap: wrap;
+    aspect-ratio: 19/20; display: flex; flex: none; flex-wrap: wrap;
     width: 270px; margin:10px; border-radius: 5px; 
     border:1px rgba(127, 127, 140, 0.351) solid; overflow: hidden; cursor: pointer;
 }
@@ -73,10 +73,10 @@ body { margin:0px;background-color:#F8F8FF }
     transform: scale(1, 1); transition: all 0.3s ease-out;
 }
 .img_box:hover .attr_image {
-    transform: scale(1.07, 1.07);
+    transform: scale(1.05, 1.05);
 }
 .name_distric_box {
-    width: 100%; display: flex;
+    width: 100%; display: flex; margin-top: 5px;
 }
 .name_left {
     padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
