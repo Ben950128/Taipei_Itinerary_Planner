@@ -90,19 +90,19 @@ body { margin:0px;background-color:#F8F8FF }
 .page_icon_box {
     display: flex; justify-content:center; width: 1200px; margin: 30px auto 30px auto;
 }
-.previous_page_icon {
-    display: none; padding: 1px 3px 1px 3px;; border-radius: 5px; 
-    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+.page_icon {
+    border-radius: 5px; border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
 }
-.next_page_icon {
-    margin-left: 10px; padding: 1px 3px 1px 3px; border-radius: 5px; 
-    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+.page_icon.previous_page {
+    display: none; padding: 1px 3px 1px 3px;
 }
-.paging_icon {
-    margin-left: 10px; padding: 1px 7px 1px 7px; border-radius: 5px; 
-    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+.page_icon.next_page {
+    margin-left: 10px; padding: 1px 3px 1px 3px;
 }
-.previous_page_icon:hover, .next_page_icon:hover, .paging_icon:hover {
+.page_icon.specify_page {
+    margin-left: 10px; padding: 1px 7px 1px 7px;
+}
+.page_icon:hover {
     background-color: rgb(240, 245, 251);
 }
 
