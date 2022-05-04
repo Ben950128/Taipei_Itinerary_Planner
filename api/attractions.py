@@ -48,8 +48,7 @@ def search_attractions_by_page():
         sql_attr = ("""select Distric from distric 
                     where Attraction_ID in (
                         select Attraction_ID from attractions
-                        where Number between %s and %s order by Attraction_ID
-                    )""")
+                        where Number between %s and %s) order by Attraction_ID""")
         cursor.execute(sql_attr, Number)
         Distric_records = cursor.fetchall()
 
@@ -57,8 +56,7 @@ def search_attractions_by_page():
         sql_attr = ("""select Latitude, Longitude from lat_long 
                     where Attraction_ID in (
                         select Attraction_ID from attractions
-                        where Number between %s and %s order by Attraction_ID
-                    )""")
+                        where Number between %s and %s) order by Attraction_ID""")
         cursor.execute(sql_attr, Number)
         lat_long_records = cursor.fetchall()
 
@@ -66,8 +64,7 @@ def search_attractions_by_page():
         sql_img = ("""select Attraction_ID, Image from images 
                     where Attraction_ID in (
                         select Attraction_ID from attractions
-                        where Number between %s and %s order by Attraction_ID
-                    )""")
+                        where Number between %s and %s) order by Attraction_ID""")
 
         cursor.execute(sql_img, Number)
         imgs_records = cursor.fetchall()
@@ -85,8 +82,7 @@ def search_attractions_by_page():
         sql_cate = ("""select Attraction_ID, Category from category 
                         where Attraction_ID in (
                             select Attraction_ID from attractions
-                            where Number between %s and %s order by Attraction_ID
-                    )""")
+                            where Number between %s and %s) order by Attraction_ID""")
 
         cursor.execute(sql_cate, Number)
         category_records = cursor.fetchall()

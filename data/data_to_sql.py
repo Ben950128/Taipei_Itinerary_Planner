@@ -20,12 +20,12 @@ cursor = connection.cursor()
 HEADER = {
     "accept": "application/json"
 }
-number = 1
-page_data = 1
 dict_data = {
     "total": 443,
     "data": []
 }
+number = 1
+page_data = 1
 
 while page_data > 0:
     url = "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=" + f"{number}"
