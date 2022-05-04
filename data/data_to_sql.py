@@ -1,5 +1,6 @@
 import mysql.connector
 import json
+import requests
 from dotenv import load_dotenv
 import os
 
@@ -15,14 +16,35 @@ connection = mysql.connector.connect(
 	)
 cursor = connection.cursor()
 
-with open("all_data.json", mode="r", encoding="utf-8") as file:
-    data = json.load(file)
+# ===========================================request data=================================================
+HEADER = {
+    "accept": "application/json"
+}
+number = 1
+page_data = 1
+dict_data = {
+    "total": 443,
+    "data": []
+}
+
+while page_data > 0:
+    url = "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=" + f"{number}"
+    response = requests.get(url, headers=HEADER)
+    single_data = json.loads(response.text)
+    page_data = len(single_data["data"])
+    for i in range(page_data):
+        dict_data["data"].append(single_data["data"][i])
+    number += 1
+
+print(len(dict_data["data"]))
+
+#========================================================================================================
 
 # 尋找不是新北市且含有img的data，也就是篩除沒有img的data
 data_with_img = []
-for i in range(len(data["data"])):
-    if data["data"][i]["images"] != [] and data["data"][i]["address"][4:7] != "新北市":
-        data_with_img.append(data["data"][i])
+for i in range(len(dict_data["data"])):
+    if dict_data["data"][i]["images"] != [] and dict_data["data"][i]["address"][4:7] != "新北市":
+        data_with_img.append(dict_data["data"][i])
     else:
         continue
 
