@@ -7,7 +7,7 @@ body { margin:0px;background-color:#F8F8FF }
 .taipei_block {
     display: flex; margin-left: 10px; cursor: pointer;
 }
-.taipei_font {
+#taipei_travel_title {
     font-size: 28px; font-family: 'Noto Sans TC', sans-serif; color: #4e7cbcf0;
 }
 .login_block {
@@ -30,7 +30,7 @@ body { margin:0px;background-color:#F8F8FF }
     background-image: url(../img/101.jpg); max-width: 100%;
     height: 450px; background-size: cover; background-position: center;filter: grayscale(20%);
 }
-.welcome_title {
+.go_explore_taipei {
     font-size: 32px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 45px
 }
 .search_attraction_input {
@@ -117,17 +117,17 @@ body { margin:0px;background-color:#F8F8FF }
 
 
 @media screen and (max-width:1200px){
-    #main_line{width:90%}
-    .img_box{width:45%}
-    .pic{width:100%;height:80%}
-    .page_icon_box{width:90%}
+    #main_line { width:90% }
+    .img_box { width:45% }
+    .pic { width:100%;height:80% }
+    .page_icon_box { width:90% }
 }
 @media screen and (max-width:600px){
-    #main_line{width:90%}
-    .img_box{width:90%}
-    .pic{width:100%;height:80% }
-    .page_icon_box{width:97%}
-    .search_attraction_input{width:200px }
+    #main_line { width:90% }
+    .img_box { width:90% }
+    .pic { width:100%;height:80% }
+    .page_icon_box { width:97% }
+    .search_attraction_input { width:200px }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
     }

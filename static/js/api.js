@@ -12,12 +12,12 @@ click_paging.forEach(item => {
 
 // 選擇行政區的addEventListener，選擇行政區當下頁數從第一頁開始
 select_distric.addEventListener('change', () => {
-    page = 1
-    specify_page(page)
+    page = 1;
+    specify_page(page);
 })
 
 // --------------------------------------------------controller--------------------------------------------------
-// 取得第一頁資料
+// 取得首頁資料
 async function first_page() {
     let url = "api/attractions?page=1";
     let promise_datas = await fetch_data(url);
@@ -169,8 +169,8 @@ function show_previous_page_icon() {
 // 更改分頁頁碼
 function change_page_icon_number(max_page) {
     let change_page_icon_number = document.querySelectorAll(".page_icon.specify_page")
-    let modify_number = -3
-    for (let i=0; i<7; i++) {
+    let modify_number = -2
+    for (let i=0; i<5; i++) {
         change_page_icon_number[i].textContent = page_now + modify_number
         modify_number++
         let page_icon_text = change_page_icon_number[i].textContent
@@ -181,5 +181,5 @@ function change_page_icon_number(max_page) {
             change_page_icon_number[i].style.display = 'block'
         }
     }
-    change_page_icon_number[3].style.backgroundColor = '#deecf5';
+    change_page_icon_number[2].style.backgroundColor = '#deecf5';
 }

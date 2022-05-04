@@ -9,7 +9,9 @@
 <body onload = "first_page()">
 	<div style = "display: flex; margin: 5px;">
 		<div class = "taipei_block">
-			<span class = "taipei_font">台北旅遊</span>
+            <a href="/" style="text-decoration:none;">
+			    <span id="taipei_travel_title">台北旅遊</span>
+            </a>
 		</div>
 		<div class = "login_block">
 			<div class = "login_font">登入/註冊
@@ -20,10 +22,10 @@
 
     <!-- 101背景區域 -->
 	<div class = "taipei101_background">
-        <div class = "welcome_title">Let's Go  Explore  Taipei</div>
+        <div class = "go_explore_taipei">Let's Go  Explore  Taipei</div>
         <div style="display: flex; margin-top: 65px;">
             <input type="text" id = "search_attraction" class="search_attraction_input" placeholder="  請輸入景點名稱"/>
-            <button class="search_attraction_buttun" onclick="search_attraction_click()">
+            <button class="search_attraction_buttun">
                 <img src="../static/img/icon_search.png" width="60%">
             </button>
         </div>
@@ -34,18 +36,18 @@
         <div class="select_box">
             <select id = 'select_distric'>
                 <option selected disabled>- - 請選擇區域 - -</option>    
-                <option value="士林區">士林區</option>
-                <option value="松山區">松山區</option>
-                <option value="信義區">信義區</option>
-                <option value="北投區">北投區</option>
-                <option value="大安區">大安區</option>
-                <option value="中山區">中山區</option>
-                <option value="中正區">中正區</option>
-                <option value="內湖區">內湖區</option>
-                <option value="南港區">南港區</option>
-                <option value="大同區">大同區</option>
-                <option value="萬華區">萬華區</option>
-                <option value="文山區">文山區</option>
+                <option>士林區</option>
+                <option>松山區</option>
+                <option>信義區</option>
+                <option>北投區</option>
+                <option>大安區</option>
+                <option>中山區</option>
+                <option>中正區</option>
+                <option>內湖區</option>
+                <option>南港區</option>
+                <option>大同區</option>
+                <option>萬華區</option>
+                <option>文山區</option>
             </select>
         </div>
     </div>
@@ -57,8 +59,6 @@
         <div class="page_icon specify_page">3</div>
         <div class="page_icon specify_page">4</div>
         <div class="page_icon specify_page">5</div>
-        <div class="page_icon specify_page">6</div>
-        <div class="page_icon specify_page">7</div>
         <div class="page_icon next_page" id="next_page_icon">下一頁</div>
     </div>
 
