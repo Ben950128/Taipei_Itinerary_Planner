@@ -1,6 +1,8 @@
 let page_now = 1;
 let click_paging = document.querySelectorAll(".page_icon");
 let select_distric = document.getElementById("select_distric");
+let search_attraction_input = document.getElementById("search_attraction_input");
+let search_attraction_buttun = document.getElementById("search_attraction_buttun");
 
 // 分頁頁碼的addEventListener
 click_paging.forEach(item => {
@@ -12,13 +14,32 @@ click_paging.forEach(item => {
 
 // 選擇行政區的addEventListener，選擇行政區當下頁數從第一頁開始
 select_distric.addEventListener('change', () => {
+    search_attraction_input.value = '';
     page = 1;
     specify_page(page);
+})
+
+// 輸入關鍵字的addEventListener
+search_attraction_buttun.addEventListener('click', () => {
+    select_distric.value = "請選擇區域";
+    page = 1;
+    specify_page(page);
+})
+
+// 按下enter key便可查詢
+search_attraction_input.addEventListener('keypress', (event) => {
+    if (event.key === "Enter") {
+    select_distric.value = "請選擇區域";
+    page = 1;
+    specify_page(page);
+    }
 })
 
 // --------------------------------------------------controller--------------------------------------------------
 // 取得首頁資料
 async function first_page() {
+    search_attraction_input.value = "";
+    select_distric.value = "請選擇區域";
     let url = "api/attractions?page=1";
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
@@ -28,11 +49,16 @@ async function first_page() {
 // 取得指定頁面資料
 async function specify_page(click_page_textContent) {
     page_now = determine_page(click_page_textContent);
-    if (select_distric.value === "- - 請選擇區域 - -") {
-        url = "api/attractions?page=" + String(page_now);
+    if (search_attraction_input.value === "") {
+        if (select_distric.value === "請選擇區域") {
+            url = "api/attractions?page=" + String(page_now);
+        }
+        else {
+            url = "api/attractions?page=" + String(page_now) + "&distric=" + select_distric.value;
+        }
     }
-    else {
-        url = "api/attractions/distric?page=" + String(page_now) + "&keyword=" + select_distric.value;
+    else{
+        url = "api/attractions?page=" + String(page_now) + "&keyword=" + search_attraction_input.value;
     }
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
@@ -46,7 +72,16 @@ async function specify_page(click_page_textContent) {
 
 // 判斷下一頁跟上一頁的按鈕是否要顯示
 function next_previous_display_icon(max_page) {
-    if (page_now === 1){
+    if (page_now === 1 && page_now === max_page){
+        delete_next_page_icon();
+        delete_previous_page_icon();
+    }
+    // 搜尋關鍵字未出現結果時max_page會=0
+    else if (max_page === 0 && page_now === 1){
+        delete_next_page_icon();
+        delete_previous_page_icon();
+    }
+    else if (page_now === 1){
         delete_previous_page_icon();
         show_next_page_icon();
     }
@@ -90,56 +125,67 @@ function fetch_data(url) {
 // --------------------------------------------------view--------------------------------------------------
 // 秀該頁出資料
 function render(datas) {
-    let main_line = document.getElementById("main_line");
-    let attraction_line = document.createElement("div");
-    attraction_line.setAttribute("id", "attraction_line");
+    let main_wrap = document.getElementById("main_wrap");
+    let attraction_wrap = document.createElement("div");
+    attraction_wrap.setAttribute("id", "attraction_wrap");
+    if (datas.length === 0) {
+        let no_data = document.createElement("div");
+        no_data.setAttribute("class", "no_data");
+        no_data.textContent = "查無資料，請重新輸入";
+        main_wrap.appendChild(attraction_wrap);
+        attraction_wrap.appendChild(no_data);
+    }
+    else {
+        for (let i=0; i<datas.length; i++){
+            let img_box = document.createElement("div");
+            let attraction_img = document.createElement("img");
+            let name_distric_box = document.createElement("div");
+            let attraction_name = document.createElement("div");
+            let attraction_distric = document.createElement("div");
+            let attraction_category = document.createElement("div");
+            img_box.addEventListener('click', () => {
+                window.location.href = "api/attractions/" + datas[i].ID;
+            })
 
-    for (let i=0; i<datas.length; i++){
-        let img_box = document.createElement("div");
-        let name_distric_box = document.createElement("div");
-        let attraction_img = document.createElement("img");
-        let attraction_name = document.createElement("div");
-        let attraction_distric = document.createElement("div");
-        let attraction_category = document.createElement("div");
+            img_box.setAttribute("class", "img_box");
+            attraction_img.setAttribute("class", "attr_image");
+            name_distric_box.setAttribute("class", "name_distric_box");
+            attraction_name.setAttribute("class", "name_left");
+            attraction_distric.setAttribute("class", "district_right");
+            attraction_category.setAttribute("class", "category_left");
 
-        img_box.setAttribute("class", "img_box");
-        attraction_img.setAttribute("class", "attr_image");
-        name_distric_box.setAttribute("class", "name_distric_box");
-        attraction_name.setAttribute("class", "name_left");
-        attraction_distric.setAttribute("class", "district_right");
-        attraction_category.setAttribute("class", "category_left");
-
-        data_img = datas[i].Image[0];
-        attraction_img.src = data_img;
-        data_name = datas[i].Name;
-        data_distric = datas[i].Distric;
-        attraction_name.innerText = data_name;
-        attraction_distric.innerText = data_distric;
-        let data_category = '';
-        if (datas[i].category.length == 1){
-            data_category = datas[i].category[0]
-        } 
-        else {
-            for (let j=0; j<2; j++) {
-                data_category = datas[i].category[j] + '\xa0\xa0\xa0\xa0' + data_category
+            data_img = datas[i].Image[0];
+            attraction_img.src = data_img;
+            data_name = datas[i].Name;
+            data_distric = datas[i].Distric;
+            attraction_name.innerText = data_name;
+            attraction_distric.innerText = data_distric;
+            let data_category = '';
+            if (datas[i].category.length == 1){
+                data_category = datas[i].category[0]
+            } 
+            else {
+                for (let j=0; j<2; j++) {
+                    data_category = datas[i].category[j] + '\xa0\xa0\xa0\xa0' + data_category
+                }
             }
-        }
-        attraction_category.innerText = data_category;
+            attraction_category.innerText = data_category;
 
-        main_line.appendChild(attraction_line);
-        attraction_line.appendChild(img_box);
-        img_box.appendChild(attraction_img);
-        img_box.appendChild(name_distric_box);
-        name_distric_box.appendChild(attraction_name);
-        name_distric_box.appendChild(attraction_distric);
-        img_box.appendChild(attraction_category);
+            main_wrap.appendChild(attraction_wrap);
+            attraction_wrap.appendChild(img_box);
+            img_box.appendChild(attraction_img);
+            img_box.appendChild(name_distric_box);
+            name_distric_box.appendChild(attraction_name);
+            name_distric_box.appendChild(attraction_distric);
+            img_box.appendChild(attraction_category);
+        }
     }
 }
 
 // 進到下一頁前會先前一頁的資料全刪掉
 function reset_render() {
-    let attraction_line = document.getElementById("attraction_line");
-    attraction_line.remove();
+    let attraction_wrap = document.getElementById("attraction_wrap");
+    attraction_wrap.remove();
 }
 
 // 刪除下一頁的按鈕

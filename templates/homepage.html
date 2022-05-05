@@ -4,7 +4,8 @@
 	<meta charset="utf-8"></meta>
 	<meta name = "viewport" content = "width=device-width,initial-scale=1,maximum-scale=1"/>
 	<title>Taipei Itinerary Planner</title>
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/homepage.css') }}">
+    <script src="{{ url_for('static',filename='js/homepage.js') }}" defer></script>
 </head>
 <body onload = "first_page()">
 	<div style = "display: flex; margin: 5px;">
@@ -24,30 +25,30 @@
 	<div class = "taipei101_background">
         <div class = "go_explore_taipei">Let's Go  Explore  Taipei</div>
         <div style="display: flex; margin-top: 65px;">
-            <input type="text" id = "search_attraction" class="search_attraction_input" placeholder="  請輸入景點名稱"/>
-            <button class="search_attraction_buttun">
+            <input type="text" id="search_attraction_input" placeholder="  請輸入景點名稱"/>
+            <button id="search_attraction_buttun">
                 <img src="../static/img/icon_search.png" width="60%">
             </button>
         </div>
 	</div>
 
     <!-- 景點圖片區 -->
-    <div id = "main_line">
+    <div id = "main_wrap">
         <div class="select_box">
             <select id = 'select_distric'>
-                <option selected disabled>- - 請選擇區域 - -</option>    
-                <option>士林區</option>
-                <option>松山區</option>
-                <option>信義區</option>
-                <option>北投區</option>
-                <option>大安區</option>
-                <option>中山區</option>
-                <option>中正區</option>
-                <option>內湖區</option>
-                <option>南港區</option>
-                <option>大同區</option>
-                <option>萬華區</option>
-                <option>文山區</option>
+                <option value="請選擇區域" selected disabled>- - 請選擇區域 - -</option>    
+                <option value="士林區">士林區</option>
+                <option value="松山區">松山區</option>
+                <option value="信義區">信義區</option>
+                <option value="北投區">北投區</option>
+                <option value="大安區">大安區</option>
+                <option value="中山區">中山區</option>
+                <option value="中正區">中正區</option>
+                <option value="內湖區">內湖區</option>
+                <option value="南港區">南港區</option>
+                <option value="大同區">大同區</option>
+                <option value="萬華區">萬華區</option>
+                <option value="文山區">文山區</option>
             </select>
         </div>
     </div>
@@ -66,6 +67,5 @@
         <div>資料來源 : 臺北旅遊網 Open API</div>
     </footer>
 
-    <script src="{{ url_for('static',filename='js/api.js') }}"></script>
 </body>
 <html>
