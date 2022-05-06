@@ -137,16 +137,18 @@ function render(datas) {
     }
     else {
         for (let i=0; i<datas.length; i++){
+            let img_wrap = document.createElement("div");
             let img_box = document.createElement("div");
             let attraction_img = document.createElement("img");
             let name_distric_box = document.createElement("div");
             let attraction_name = document.createElement("div");
             let attraction_distric = document.createElement("div");
             let attraction_category = document.createElement("div");
-            img_box.addEventListener('click', () => {
+            img_wrap.addEventListener('click', () => {
                 window.location.href = "api/attractions/" + datas[i].ID;
             })
 
+            img_wrap.setAttribute("class", "img_wrap");
             img_box.setAttribute("class", "img_box");
             attraction_img.setAttribute("class", "attr_image");
             name_distric_box.setAttribute("class", "name_distric_box");
@@ -172,12 +174,13 @@ function render(datas) {
             attraction_category.innerText = data_category;
 
             main_wrap.appendChild(attraction_wrap);
-            attraction_wrap.appendChild(img_box);
+            attraction_wrap.appendChild(img_wrap);
+            img_wrap.appendChild(img_box);
             img_box.appendChild(attraction_img);
-            img_box.appendChild(name_distric_box);
+            img_wrap.appendChild(name_distric_box);
             name_distric_box.appendChild(attraction_name);
             name_distric_box.appendChild(attraction_distric);
-            img_box.appendChild(attraction_category);
+            img_wrap.appendChild(attraction_category);
         }
     }
 }
