@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, request, jsonify
 from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
@@ -26,7 +26,7 @@ def search_attractions_by_page():
     keyword = request.args.get("keyword")
     distric = request.args.get("distric")
 
-    if distric != "請選擇區域" and distric != None:
+    if distric != "請選擇區域" and distric != None:             # 取得行政區資料
         try:
             page = int(request.args.get("page"))
             return show_distric_attraction(cursor, distric, page)
@@ -43,7 +43,7 @@ def search_attractions_by_page():
         finally:
             cursor.close()
             connection_object1.close()
-    elif keyword != None:
+    elif keyword != None:                                       # 取得模糊搜尋資料
         try:
             page = int(request.args.get("page"))
             return show_like_search_attraction(cursor, keyword, page)
@@ -60,7 +60,7 @@ def search_attractions_by_page():
         finally:
             cursor.close()
             connection_object1.close()
-    else:
+    else:                                                       # 單純取得頁數資料
         try:
             page = int(request.args.get("page"))
             return show_all_attraction(cursor, page)
@@ -79,7 +79,7 @@ def search_attractions_by_page():
 
 
 # ---------------依照景點ID輸出景點資料----------------
-@attractions.route("/attractions/<attractionID>", methods=["GET"])
+@attractions.route("/attraction/<attractionID>", methods=["GET"])
 def search_attractions_by_ID(attractionID):
     connection_object2 = connection_pool.get_connection()
     cursor = connection_object2.cursor()

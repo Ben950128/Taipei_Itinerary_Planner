@@ -1,25 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
 /* 標籤選擇器 */
-body { margin:0px;background-color:#F8F8FF }
+body { 
+    margin:0px;
+    background-color:#F8F8FF 
+}
 
 /* class選擇器 */
 /* 頂部白色區 */
 .taipei_block {
-    display: flex; margin-left: 10px; cursor: pointer;
+    display: flex; 
+    margin-left: 10px; 
+    cursor: pointer;
 }
 #taipei_travel_title {
-    font-size: 28px; font-family: 'Noto Sans TC', sans-serif; color: #4e7cbcf0;
+    font-size: 28px; 
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 700; 
+    color: #4e7cbcf0;
 }
 .login_block {
-    flex: 1; display: flex; justify-content: flex-end; align-items: center;
+    flex: 1; 
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center;
 }
 .login_font {
-    font-size:18px; margin-right:10px;
-    display: inline-block; vertical-align: middle; position: relative; cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    color: rgb(63, 63, 71); 
+    font-size: 18px; 
+    margin-right:10px;
+    display: inline-block; 
+    vertical-align: middle; 
+    position: relative; 
+    cursor: pointer;
 }
 .shape-line {
-    width: 0%; height: 1px; background-color: rgb(0, 0, 0); position: absolute;
-    bottom: 0; left: 0; transition: all .3s linear;
+    width: 0%; 
+    height: 1px; 
+    background-color: rgb(0, 0, 0); 
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    transition: all .3s linear;
 }
 .login_font:hover .shape-line{
     width: 100%;
@@ -27,18 +50,37 @@ body { margin:0px;background-color:#F8F8FF }
 
 /* 以下為背景為101照片區 */
 .taipei101_background {
-    background-image: url(../img/101.jpg); max-width: 100%;
-    height: 450px; background-size: cover; background-position: center;filter: grayscale(20%);
+    background-image: url(../img/101.jpg); 
+    max-width: 100%;
+    height: 450px; 
+    background-size: cover; 
+    background-position: center; 
+    filter: grayscale(20%);
 }
 .go_explore_taipei {
-    font-size: 32px; font-family: 'Noto Sans TC', sans-serif; color: white; padding-top: 80px; padding-left: 45px
+    font-size: 32px; 
+    font-family: 'Noto Sans TC', sans-serif; 
+    color: white; 
+    padding-top: 80px; 
+    padding-left: 45px
 }
 #search_attraction_input {
-    font-size: 17px; width: 270px; margin-left: 45px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border: none;
+    font-size: 17px; 
+    width: 270px; 
+    margin-left: 45px; 
+    border-top-left-radius: 5px; 
+    border-bottom-left-radius: 5px;
+    border: none; 
+    outline:none;
 }
 #search_attraction_buttun {
-    background-color: #618ae3; height: 3em; width: 50px; 
-    border-top-right-radius: 5px; border-bottom-right-radius: 5px; border: none; cursor: pointer;
+    background-color: #618ae3; 
+    height: 3em; 
+    width: 50px; 
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+    border: none; 
+    cursor: pointer;
 }
 #search_attraction_buttun:hover {
     background-color: rgb(114, 161, 236);
@@ -46,68 +88,122 @@ body { margin:0px;background-color:#F8F8FF }
 
 /* 以下為選擇行政區及景點照片區 */
 #main_wrap {
-    display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content:center; 
+    width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
 }
 #attraction_wrap {
-    display: flex; flex-wrap: wrap; justify-content:center; width: 1200px; margin-left: auto; margin-right: auto; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content:center; 
+    width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
 }
 /* 選擇行政區 */
 .select_box {
-    margin: 35px; width: 100%; display: flex; justify-content: center; align-items: center;
+    margin: 35px; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
 }
 #select_distric {
-    font-size: 18px; text-align: center; border-radius: 5px; height: 2em; width: 300px; 
-    border: 1px rgba(127, 127, 140, 0.615) solid; cursor: pointer;
+    font-size: 18px; 
+    text-align: center; 
+    border-radius: 5px; 
+    height: 2em; 
+    width: 300px; 
+    border: 1px rgba(127, 127, 140, 0.615) solid; 
+    cursor: pointer;
 }
 #select_distric:hover {
     opacity: 0.7;
 }
 /* 景點照片區 */
 .img_wrap {
-    aspect-ratio: 1/1; display: flex; flex: none; flex-wrap: wrap;
-    width: 270px; margin:10px; border-radius: 5px; 
-    border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+    aspect-ratio: 1/1; 
+    display: flex; 
+    flex: none; 
+    flex-wrap: wrap;
+    width: 270px; 
+    margin:10px; 
+    border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; 
+    cursor: pointer;
 }
 .img_box {
-    display: flex; justify-content: center; align-items: center;
-    width: 100%; max-height: 65%; overflow: hidden;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    width: 100%; 
+    max-height: 65%; 
+    overflow: hidden; 
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px; 
 }
 .attr_image { 
-    flex: none; width: 100%; border-top-left-radius: 5px; border-top-right-radius: 5px;
-    transform: scale(1, 1); transition: all 0.3s ease-out;
+    flex: none; 
+    width: 100%;
+    transform: scale(1, 1); 
+    transition: all 0.3s ease-out;
 }
 .img_wrap:hover .attr_image {
     transform: scale(1.15, 1.15);
 }
-.name_distric_box {
-    width: 100%; display: flex; margin-top: 3px;
+.name_distric_box { 
+    display: flex;
+    width: 100%;
+    margin-top: 3px;
 }
 .name_left {
-    padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
+    padding-left: 8px; 
+    font-weight: bold; 
+    color: rgb(63, 63, 71)
 }
 .district_right {
-    flex: 1; text-align: end; padding-right: 8px; min-width: 70px; font-weight: bold; color: rgb(63, 63, 71)
+    flex: 1; 
+    text-align: end; 
+    padding-right: 8px; 
+    min-width: 70px; 
+    font-weight: bold; 
+    color: rgb(63, 63, 71);
 }
 .category_left {
-    padding-left: 8px; font-weight: bold; color: rgb(63, 63, 71)
+    padding-left: 8px; 
+    font-weight: bold; 
+    color: rgb(63, 63, 71)
 }
 .no_data {
-    color: rgb(57, 57, 108); font-size: 20px; font-weight: bold;
+    color: rgb(57, 57, 108); 
+    font-size: 20px; 
+    font-weight: bold;
 }
 .page_icon_box {
-    display: flex; justify-content:center; width: 1200px; margin: 30px auto 30px auto;
+    display: flex; 
+    justify-content:center; 
+    width: 1200px; 
+    margin: 30px auto 30px auto;
 }
 .page_icon {
-    border-radius: 5px; border:1px rgba(127, 127, 140, 0.351) solid; cursor: pointer;
+    border-radius: 5px; 
+    border:1px rgba(127, 127, 140, 0.351) solid; 
+    cursor: pointer;
 }
 .page_icon.previous_page {
-    display: none; padding: 1px 3px 1px 3px;
+    display: none; 
+    padding: 1px 3px 1px 3px;
 }
 .page_icon.next_page {
-    margin-left: 10px; padding: 1px 3px 1px 3px;
+    margin-left: 10px; 
+    padding: 1px 3px 1px 3px;
 }
 .page_icon.specify_page {
-    margin-left: 10px; padding: 1px 7px 1px 7px;
+    margin-left: 10px; 
+    padding: 1px 7px 1px 7px;
 }
 .page_icon:hover {
     background-color: rgb(240, 245, 251);
@@ -115,26 +211,39 @@ body { margin:0px;background-color:#F8F8FF }
 
 /* 底部配色 */
 .page_bottom {
-    display: flex; justify-content: center; align-items: center;
-    background-color: #427bac; width: 100%; height: 100px; color: white
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    background-color: #427bac; 
+    width: 100%; 
+    height: 100px; 
+    color: white;
 }
-
-
-
-
 
 @media screen and (max-width:1200px){
-    #main_wrap { width:90% }
-    .img_wrap { width:45% }
-    .pic { width:100%;height:80% }
-    .page_icon_box { width:90% }
+    #main_wrap { 
+        width: 90%;
+    }
+    .img_wrap { 
+        width: 45%;
+    }
+    .page_icon_box { 
+        width: 90%;
+    }
 }
 @media screen and (max-width:600px){
-    #main_wrap { width:90% }
-    .img_wrap { width:90% }
-    .pic { width:100%;height:80% }
-    .page_icon_box { width:97% }
-    .search_attraction_input { width:200px }
+    #main_wrap { 
+        width: 90%;
+    }
+    .img_wrap { 
+        width: 90%;
+    }
+    .page_icon_box { 
+        width: 97%;
+    }
+    .search_attraction_input { 
+        width: 200px;
+    }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
     }

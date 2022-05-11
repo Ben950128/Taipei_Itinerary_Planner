@@ -49,16 +49,17 @@ async function first_page() {
 // 取得指定頁面資料
 async function specify_page(click_page_textContent) {
     page_now = determine_page(click_page_textContent);
+    
     if (search_attraction_input.value === "") {
         if (select_distric.value === "請選擇區域") {
-            url = "api/attractions?page=" + String(page_now);
+            url = "./api/attractions?page=" + String(page_now);
         }
         else {
-            url = "api/attractions?page=" + String(page_now) + "&distric=" + select_distric.value;
+            url = "./api/attractions?page=" + String(page_now) + "&distric=" + select_distric.value;
         }
     }
     else{
-        url = "api/attractions?page=" + String(page_now) + "&keyword=" + search_attraction_input.value;
+        url = "./api/attractions?page=" + String(page_now) + "&keyword=" + search_attraction_input.value;
     }
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
@@ -107,6 +108,7 @@ function determine_page(click_page_textContent) {
         let int_click_page_textContent = parseInt(click_page_textContent);
         page_now = int_click_page_textContent;
     }
+
     return page_now
 }
 
@@ -145,7 +147,7 @@ function render(datas) {
             let attraction_distric = document.createElement("div");
             let attraction_category = document.createElement("div");
             img_wrap.addEventListener('click', () => {
-                window.location.href = "api/attractions/" + datas[i].ID;
+                window.location.href = "./attraction/" + datas[i].ID;
             })
 
             img_wrap.setAttribute("class", "img_wrap");

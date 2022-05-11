@@ -14,6 +14,12 @@ def index():
 	return render_template("homepage.html")
 
 
+# 建立路徑/對應的處理函式，為網站首頁
+@app.route("/attraction/<attractionId>")
+def attaction(attractionId):
+	return render_template("attraction.html")
+
+
 # 啟動網站伺服器，可透過port參數設定指定埠號
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port = 3000)

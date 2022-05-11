@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<meta name = "viewport" content = "width=device-width,initial-scale=1,maximum-scale=1"/>
+	<title>Taipei Itinerary Planner</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/attraction.css') }}">
+    <script src="{{ url_for('static',filename='js/attraction.js') }}" defer></script>
+</head>
+<body onload = "attraction_page()">
+	<div class="top_block">
+		<div class = "taipei_block">
+            <a href="/" style="text-decoration:none;">
+			    <span id="taipei_travel_title">台北旅遊</span>
+            </a>
+		</div>
+		<div class = "login_block">
+			<div class = "login_font">登入/註冊
+                <div class="shape-line" ></div>
+            </div>
+		</div>
+	</div>
+
+    <div id="main_wrap">
+        <div id="preview_img_wrap"></div>
+        <div id="main_img_wrap">
+            <!-- <img id="attraction_img" class="fade"> -->
+        </div>
+        <div class="detail_and_reserve">
+            <div style="display: flex">
+                <div id="attraction_name"></div>
+                <div class="heart_icon_block" onclick="change_heart()">
+                    <img id="white_heart" src="{{url_for('static', filename='img/heart_white.png')}}">
+                    <img id="red_heart" src="{{url_for('static', filename='img/heart_red.png')}}">
+                </div>
+            </div>
+            <div class="line_under_attraction_name"></div>
+            <div id="attraction_address" class="detail"></div>
+            <div id="attraction_tel" class="detail"></div>
+            <div class="detail">費用: &nbsp100 元/人</div>
+
+            <div class = "attraction_div">
+                <span class="select_span">選擇日期: &nbsp</span>
+                    <input id="select_date" type="date">
+            </div>
+
+            <div class="attraction_div">
+                <span class="select_span">選擇人數: &nbsp</span>
+                <select id = 'select_travelers'>
+                    <option value="請選擇人數" selected disabled>請選擇人數</option>    
+                    <option value="1">1位</option>
+                    <option value="2">2位</option>
+                    <option value="3">3位</option>
+                    <option value="4">4位</option>
+                    <option value="5">5位</option>
+                </select>
+            </div>
+
+            <div id="booking_div">預定行程</div>
+        </div>
+    </div>
+
+    <hr class="bottom_hr">
+    <div id="introduction"></div>
+    
+    <footer class="page_bottom">
+        <div>資料來源 : 臺北旅遊網 Open API</div>
+    </footer>
+
+</body>
+<html>
