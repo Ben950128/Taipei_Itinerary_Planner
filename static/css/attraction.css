@@ -303,27 +303,31 @@ body {
 
 @media screen and (max-width:600px){
     #main_wrap { 
-        width: 95%;
+        width: 98%;
     }
     #preview_img_wrap { 
         display: none; 
     }
-    .attraction_img { 
-        height: 400px;
-        object-fit: cover;
-    }
     #main_img_wrap {
-        width: 90%; 
+        width: 98%;
+        height: 350px;
         margin: auto;
     }
+    .attraction_img_block {
+        height: 350px;
+    }
+    .attraction_img { 
+        height: 350px;
+        object-fit: cover;
+    }
     .detail_and_reserve { 
-        width: 90%; 
+        width: 98%; 
         margin-top: 20px;
     }
     .bottom_hr { 
-        width: 92%; 
+        width: 93%; 
     }
     #introduction {
-        width: 90%;
+        width: 92%;
     }
 }
