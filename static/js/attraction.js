@@ -7,7 +7,7 @@ async function attraction_page() {
     let url = "../api/attraction/" + String(url_id);
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
-    render(datas)
+    render(datas);
 }
 
 // --------------------------------------------------model--------------------------------------------------
@@ -48,10 +48,10 @@ function render(datas) {
     introduction_statement.setAttribute("class", "introduction_statement");
     introduction_category.setAttribute("class", "introduction_category");
     prev.addEventListener('click', () => {
-        plus_slides(datas, -1)
+        plus_slides(datas, -1);
     })
     next.addEventListener('click', () => {
-        plus_slides(datas, 1)
+        plus_slides(datas, 1);
     })
 
     main_img_wrap.appendChild(prev);
@@ -60,7 +60,7 @@ function render(datas) {
     introduction_statement.textContent = datas.Introduction;
     let categories = "";
     for (let j=0; j<datas.category.length; j++) {
-        categories = datas.category[j] + "\xa0\xa0\xa0\xa0" + categories
+        categories = datas.category[j] + "\xa0\xa0\xa0\xa0" + categories;
     };
     introduction_category.textContent =  "主題標籤:\xa0\xa0\xa0\xa0" + categories;
     introduction.appendChild(introduction_category);
@@ -70,7 +70,7 @@ function render(datas) {
 // 創造預覽圖片列表，先顯示前4張
 function create_preview_img(datas) {
     let preview_img_wrap = document.getElementById("preview_img_wrap");
-    let repeat_number = 0
+    let repeat_number = 0;
     for (let i=0; i<4; i++) {
         let small_img_wrap = document.createElement("div");
         let small_img = document.createElement("img");
@@ -84,10 +84,10 @@ function create_preview_img(datas) {
         small_img_wrap.appendChild(small_img);
     }
     let small_img = document.getElementsByClassName("small_img");
-    small_img[0].style.filter = "contrast(100%)"
+    small_img[0].style.filter = "contrast(100%)";
 }
 
-// 預覽圖片列表如何輪播
+// 預覽圖片列表如何輪播，利用現在的slide_index直接修改這4張的src
 function slide_preview_img(datas) {
     let small_img = document.getElementsByClassName("small_img");
     console.log(slide_index)
@@ -101,14 +101,14 @@ function slide_preview_img(datas) {
         for (i=0; i<4; i++) {
             let number;
             if (slide_index + i < datas.Image.length) {
-                number = slide_index + i
+                number = slide_index + i;
             }
             // 如果超過img長度，則從第0張開始撥放
             else {
-                number = slide_index + i - datas.Image.length
+                number = slide_index + i - datas.Image.length;
             }
             if (number >= datas.Image.length) {
-                number = 0
+                number = 0;
             }
             small_img[i].src = datas.Image[number];
         }
@@ -127,7 +127,7 @@ function create_all_main_img(datas) {
         attraction_img.src = datas.Image[i];
         main_img_wrap.appendChild(attraction_img_block);
         attraction_img_block.appendChild(attraction_img);
-        attraction_img_block.style.display = "none"
+        attraction_img_block.style.display = "none";
     }
 }
 
@@ -135,9 +135,9 @@ function create_all_main_img(datas) {
 function show_main_img(datas) {
     let attraction_img_block = document.getElementsByClassName("attraction_img_block");
     for (let i=0; i<datas.Image.length; i++) {
-        attraction_img_block[i].style.display = "none"
+        attraction_img_block[i].style.display = "none";
     }
-    attraction_img_block[slide_index].style.display = "flex"
+    attraction_img_block[slide_index].style.display = "flex";
 }
 
 // 圖片下/上一張按鈕
@@ -153,6 +153,7 @@ function plus_slides(datas, n) {
     slide_preview_img(datas);
 }
 
+// 愛心點擊觸發事件
 function change_heart() {
     let red_heart = document.getElementById("red_heart");
     let white_heart = document.getElementById("white_heart");

@@ -241,9 +241,13 @@ body {
     .page_icon_box { 
         width: 97%;
     }
-    .search_attraction_input { 
+    .go_explore_taipei {
+        padding-left: 30px;
+    }
+    #search_attraction_input { 
+        margin-left: 30px;
         width: 200px;
     }
     /* .computer{display:none}
     .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
-    }
+}
