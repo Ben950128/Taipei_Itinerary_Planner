@@ -11,11 +11,10 @@ connection_pool = pooling.MySQLConnectionPool(
     pool_name="mysql_pool",
     pool_size=5,
     pool_reset_session=True,
-    host='localhost',
+    host='private-subnet-mysql.clfzs0ueg2gx.us-east-1.rds.amazonaws.com',
     database='taipei_tourism',
-    user='root',
+    user='admin',
     password=MYSQL_DB_PASSWORD,
-    auth_plugin='mysql_native_password'
 )
 
 # ------------------輸出景點資料------------------
