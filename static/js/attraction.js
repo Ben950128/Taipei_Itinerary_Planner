@@ -1,4 +1,5 @@
 let slide_index = 0;
+
 // --------------------------------------------------controller--------------------------------------------------
 // 取得首頁資料
 async function attraction_page() {
@@ -12,14 +13,10 @@ async function attraction_page() {
 
 // --------------------------------------------------model--------------------------------------------------
 // 根據URL取資料
-function fetch_data(url) {
-    return fetch(url)
-    .then(function(response) {
-        return response.json()
-    })
-    .then(function(res){
-        return res
-    })
+async function fetch_data(url) {
+    let response = await fetch(url);
+    let res = await response.json();
+    return res;
 }
 
 // --------------------------------------------------view--------------------------------------------------

@@ -1,12 +1,12 @@
 from flask import Flask, render_template
 from api.attractions import attractions
+from api.members import members
 
 # 建立application物件，可以設定靜態檔案的路徑處理
 app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
 app.register_blueprint(attractions,  url_prefix="/api")
-app.secret_key = "login"
-
+app.register_blueprint(members,  url_prefix="/api")
 
 # 建立路徑/對應的處理函式，為網站首頁
 @app.route("/")

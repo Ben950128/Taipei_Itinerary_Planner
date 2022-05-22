@@ -1,6 +1,6 @@
 create database taipei_tourism;
-  
-# 創建attractions基本表格
+show databases;
+# 創建attractions基本表格---------------------------------------------------------------------------------
 CREATE TABLE  `attractions` (
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID' PRIMARY KEY,
   `Number` INT NOT NULL AUTO_INCREMENT COMMENT 'Number' UNIQUE,
@@ -14,10 +14,17 @@ select count(*) from attractions;
 
 select Attraction_ID, Name, Introduction, Address, Tell 
 from attractions
-where Number between 25 and 36;
+where Attraction_ID in (
+	select Attraction_ID from distric where distric = "大同區"
+) order by Attraction_ID limit 0,12 ;
 
+select Attraction_ID, Name, Introduction, Address, Tell 
+from attractions where Number between 1 and 12 order by Attraction_ID;
 
-# 創建attractions_Distric表格
+select Attraction_ID, Name, Introduction, Address, Tell 
+from attractions where Name LIKE '%台北%' order by Attraction_ID limit 0, 12;
+
+# 創建attractions_Distric表格---------------------------------------------------------------------------------
 CREATE TABLE  `distric` (
   `Distric_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Distric` VARCHAR(10) COMMENT 'Attraction_Distric',
@@ -25,16 +32,17 @@ CREATE TABLE  `distric` (
   FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 describe distric;
 select * from distric;
-select count(*) from distric;
+select count(*) from distric group by distric;
 
-select * from distric 
-where Attraction_ID in (
-	select Attraction_ID from attractions
-    where Number between 1 and 12
-);
+select * from distric where Attraction_ID in (
+		select Attraction_ID from attractions
+		where Name LIKE '%廟%') order by Attraction_ID;
+
+select *from distric 
+where Attraction_ID = 2576;
 
 
-# 創建attractions經緯度表格
+# 創建attractions經緯度表格---------------------------------------------------------------------------------
 CREATE TABLE  `lat_long` (
   `Lat_Long_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Latitude` DOUBLE COMMENT 'Attraction_Latitude',
@@ -52,7 +60,7 @@ where Attraction_ID in (
 );
 
 
-# 創建img表格
+# 創建img表格-------------------------------------------------------------------------------------------
 CREATE TABLE  `images` (
   `Image_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
   `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
@@ -68,8 +76,12 @@ where Attraction_ID in (
 	select Attraction_ID from attractions
     where Number = 1
 );
+select Attraction_ID, Image from images 
+where Attraction_ID in (
+select Attraction_ID from category where category = "單車遊蹤");
 
-# 創建category表格
+
+# 創建category表格------------------------------------------------------------------------------------------
 CREATE TABLE  `category` (
   `Category_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Category_ID' PRIMARY KEY,
   `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
@@ -79,3 +91,20 @@ CREATE TABLE  `category` (
 describe category;
 select * from category;
 select count(*) from category;
+
+select Attraction_ID, Category from category 
+where Attraction_ID in (
+select Attraction_ID from category where category = "單車遊蹤"
+);
+
+# 創建個人資料表格------------------------------------------------------------------------------------------
+CREATE TABLE  `member` (
+  `Member_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Member_ID' PRIMARY KEY,
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name',
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
+  `Password` VARCHAR(45) NOT NULL COMMENT 'Password',
+  `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
+  
+describe member;
+select * from member;

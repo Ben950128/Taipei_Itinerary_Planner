@@ -16,7 +16,7 @@ body {
 }
 .taipei_block {
     display: flex;
-     margin-left: 10px; 
+     margin-left: 15px; 
      cursor: pointer;
 }
 #taipei_travel_title {
@@ -25,18 +25,19 @@ body {
     font-weight: 700; 
     color: #4e7cbcf0;
 }
-.login_block {
+.login_and_reserve_block {
     flex: 1; 
     display: flex; 
     justify-content: flex-end; 
     align-items: center;
 }
-.login_font {
-    font-family: 'Noto Sans TC', sans-serif;  
+.login_and_reserve_font {
+    font-family: 'Noto Sans TC', sans-serif; 
     font-weight: 400; 
-    color: rgb(63, 63, 71);
-    font-size:18px;
-     margin-right:10px;
+    color: rgb(63, 63, 71); 
+    font-size: 18px; 
+    margin-left:10px;
+    margin-right:20px;
     display: inline-block; 
     vertical-align: middle; 
     position: relative; 
@@ -45,13 +46,13 @@ body {
 .shape-line {
     width: 0%; 
     height: 1px; 
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0); 
     position: absolute;
     bottom: 0; 
     left: 0; 
     transition: all .3s linear;
 }
-.login_font:hover .shape-line {
+.login_and_reserve_font:hover .shape-line{
     width: 100%;
 }
 
@@ -274,6 +275,118 @@ body {
     color: white
 }
 
+/* 登入介面區 */
+#login_interface_block, #signup_interface_block {
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    height: 300px;
+    width: 340px;
+    margin-top: -150px;
+    margin-left: -170px;
+    background-color: #638bc4;
+    border-radius: 6px;
+    border: none;
+    padding: 0px;
+    visibility: hidden;
+}
+#signup_interface_block {
+    height: 380px;
+    margin-top: -200px;
+}
+.login_interface_top, .signup_interface_top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center;
+    margin: 10px 0px 0px 0px;
+    height: 290px;
+    background-color: white;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.signup_interface_top {
+    height: 370px;
+}
+.login_title {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    font-size: 24px;
+    color: rgb(63, 63, 71);
+    margin-top: 10px;
+}
+#login_icon_close_block, #signup_icon_close_block {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.longin_input {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    width: 280px;
+    height: 40px;
+    border-radius: 5px;
+    border: solid rgb(121, 121, 121) 0.5px; 
+    outline:none;
+    font-size: 16px;
+}
+#login_click, #signup_click {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    width: 285px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    background-color: #497cc4;
+    outline:none;
+    cursor: pointer;
+}
+#login_click:hover, #signup_click:hover {
+    background-color: rgb(85, 134, 212);
+}
+#signup_status {
+    width: 300px;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    font-size: 16px;
+    color: rgb(175, 36, 36);
+    text-align: center;
+    margin-top: -5px;
+}
+#convert_to_signup, #convert_to_login {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    color: rgb(63, 63, 71);
+    cursor: pointer;
+}
+#convert_to_signup:hover, #convert_to_login:hover {
+    color: rgb(117, 117, 125);
+}
+#background_oppacity {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    position: fixed;
+    opacity: 0.3;
+    -webkit-opacity: 0.3;
+    -moz-opacity: 0.3;
+    display: none;
+}
 
 @media screen and (max-width:1200px){
     #main_wrap {

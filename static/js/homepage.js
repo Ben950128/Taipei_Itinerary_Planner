@@ -4,6 +4,7 @@ let select_distric = document.getElementById("select_distric");
 let search_attraction_input = document.getElementById("search_attraction_input");
 let search_attraction_buttun = document.getElementById("search_attraction_buttun");
 
+
 // 分頁頁碼的addEventListener
 click_paging.forEach(item => {
     item.addEventListener('click', event => {
@@ -112,16 +113,12 @@ function determine_page(click_page_textContent) {
     return page_now
 }
 
-// --------------------------------------------------model--------------------------------------------------
+// --------------------------------------------------model-------------------------------------------------
 // 根據URL取資料
-function fetch_data(url) {
-    return fetch(url)
-    .then(function(response) {
-        return response.json()
-    })
-    .then(function(res){
-        return res
-    })
+async function fetch_data(url) {
+    let response = await fetch(url);
+    let res = await response.json();
+    return res;
 }
 
 // --------------------------------------------------view--------------------------------------------------

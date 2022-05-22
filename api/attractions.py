@@ -11,10 +11,11 @@ connection_pool = pooling.MySQLConnectionPool(
     pool_name="mysql_pool",
     pool_size=5,
     pool_reset_session=True,
-    host='private-subnet-mysql.clfzs0ueg2gx.us-east-1.rds.amazonaws.com',
+    host='localhost',
     database='taipei_tourism',
-    user='admin',
+    user='root',
     password=MYSQL_DB_PASSWORD,
+    auth_plugin='mysql_native_password'
 )
 
 # ------------------輸出景點資料------------------
@@ -57,8 +58,10 @@ def search_attractions_by_page():
             return response, 500
 
         finally:
+            print(connection_object1)
             cursor.close()
             connection_object1.close()
+            print(connection_object1)
     else:                                                       # 單純取得頁數資料
         try:
             page = int(request.args.get("page"))

@@ -6,6 +6,7 @@
 	<title>Taipei Itinerary Planner</title>
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/homepage.css') }}">
     <script src="{{ url_for('static',filename='js/homepage.js') }}" defer></script>
+    <script src="{{ url_for('static',filename='js/member.js') }}" defer></script>
 </head>
 <body onload = "first_page()">
 	<div style = "display: flex; margin: 5px;">
@@ -14,8 +15,11 @@
 			    <span id="taipei_travel_title">台北旅遊</span>
             </a>
 		</div>
-		<div class = "login_block">
-			<div class = "login_font">登入/註冊
+		<div class = "login_and_reserve_block">
+            <div id="reserve"  class = "login_and_reserve_font">預定行程
+                <div class="shape-line" ></div>
+            </div>
+			<div id="login_or_singup"  class = "login_and_reserve_font">登入/註冊
                 <div class="shape-line" ></div>
             </div>
 		</div>
@@ -63,6 +67,38 @@
         <div class="page_icon next_page" id="next_page_icon">下一頁</div>
     </div>
 
+    <!-- 登入系統 -->
+    <div id="login_interface_block">
+        <div class="login_interface_top">
+            <div class="login_title">登入會員帳號</div>
+            <div id="login_icon_close_block">
+                <img src="../static/img/icon_close.png">
+            </div>
+            <input type="text" class="longin_input" placeholder="  請輸入帳號"/>
+            <input type="text" class="longin_input" placeholder="  請輸入密碼"/>
+            <div id="login_click">登入帳戶</div>
+            <div id="convert_to_signup">點此註冊</div>
+        </div>
+    </div>
+
+    <!-- 註冊系統 -->
+    <div id="signup_interface_block">
+        <div class="signup_interface_top">
+            <div class="login_title">註冊會員帳號</div>
+            <div id="signup_icon_close_block">
+                <img src="../static/img/icon_close.png">
+            </div>
+            <input type="text" id="signup_name" class="longin_input" name="name" placeholder="  請輸入姓名"/>
+            <input type="text" id="signup_username" class="longin_input" name="username" placeholder="  請輸入帳號"/>
+            <input type="password" id="signup_password" class="longin_input" name="password" placeholder="  請輸入密碼"/>
+            <input type="text" id="signup_email" class="longin_input" name="email" placeholder="  請輸入電子信箱"/>
+            <div id="signup_click"  onclick = "member_signup()">註冊新帳戶</div>
+            <div id="signup_status">&nbsp</div>
+            <div id="convert_to_login">已經有帳戶? 點此登入</div>
+        </div>
+    </div>
+
+    <div id="background_oppacity"></div>
     <footer class="page_bottom">
         <div>資料來源 : 臺北旅遊網 Open API</div>
     </footer>
