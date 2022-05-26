@@ -1,10 +1,11 @@
-import imp
-from flask import Blueprint, request
+from urllib import response
+from flask import Blueprint, request, make_response
 from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
 import re
 import jwt
+import datetime
 
 members = Blueprint("members", __name__, template_folder="templates")
 load_dotenv()
@@ -22,10 +23,32 @@ connection_pool = pooling.MySQLConnectionPool(
     auth_plugin='mysql_native_password'
 )
 
+
+@members.route("/members", methods = ["GET"])
+def if_member_login():
+    try:
+        Token = request.cookies.get('Token')
+        decode_token = jwt.decode(Token, SECRET_KEY, algorithms="HS256")
+        response = {
+            "data": {
+                "member_id": decode_token["member_id"],
+                "username": decode_token["username"],
+                "email": decode_token["email"]
+            }
+        }
+        return make_response(response, 200)
+
+    except:
+        response = {
+            "data": None
+        }
+        return make_response(response, 200)
+
+
 @members.route("/members", methods = ["POST"])
 def signup():
-    connection_object1 = connection_pool.get_connection()
-    cursor = connection_object1.cursor()
+    connection_object2 = connection_pool.get_connection()
+    cursor = connection_object2.cursor()
     request_json = request.get_json()
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     name = request_json["name"]
@@ -47,14 +70,14 @@ def signup():
                 "error": True,
                 "message": "各欄位不可空白"
             }
-            return response, 400
+            return make_response(response, 400)
 
         elif (re.fullmatch(regex, email) == None):
             response = {
                 "error": True,
                 "message": "Email格式錯誤"
             }
-            return response, 400
+            return make_response(response, 400)
 
         elif records_username == [] and records_email == []:
             sql = "insert into member(Name, Username, Password, Email) values(%s, %s, %s, %s)"
@@ -63,37 +86,90 @@ def signup():
             response = {
                 "ok": True
             }
-            connection_object1.commit()
-            return response, 200
+            connection_object2.commit()
+            return make_response(response, 200)
 
         elif records_username != [] and records_email != []:
             response = {
                 "error": True,
                 "message": "該帳號及Email已被註冊"
             }
-            return response, 400
+            return make_response(response, 400)
             
         elif records_username == [] and records_email != []:
             response = {
                 "error": True,
                 "message": "該Email已被註冊"
             }
-            return response, 400
+            return make_response(response, 400)
 
         elif records_username != [] and records_email == []:
             response = {
                 "error": True,
                 "message": "該帳號已被註冊"
             }
-            return response, 400
+            return make_response(response, 400)
 
     except:
         response = {
             "error": True,
             "message": "伺服器錯誤"
         }
-        return response, 500
+        return make_response(response, 500)
 
     finally:
         cursor.close()
-        connection_object1.close()
+        connection_object2.close()
+
+
+@members.route("/members", methods = ["PATCH"])
+def login():
+    connection_object3 = connection_pool.get_connection()
+    cursor = connection_object3.cursor()
+    request_json = request.get_json()
+    username = request_json["username"]
+    password = request_json["password"]
+    sql = ("select member_id, username, email from member where Username = %s and Password = %s")
+    val = (username,password)
+    cursor.execute(sql, val)
+    records_username = cursor.fetchall()
+    member_id = records_username[0][0]
+    email = records_username[0][2]
+    if records_username != []:
+        response = {
+            "ok": True
+        }
+        token = jwt.encode(
+            {
+                "member_id": member_id,
+                "username": username,
+                "email": email,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=30)
+            },
+            SECRET_KEY, algorithm="HS256"
+        )
+        res = make_response(response, 200)
+        res.set_cookie(key="Token", value=token)
+        cursor.close()
+        connection_object3.close()
+        return res
+
+    elif records_username == []:
+        response = {
+            "error": True,
+            "message": "使用者尚未註冊"
+        }
+        res = make_response(response, 400)
+        cursor.close()
+        connection_object3.close()
+        return res
+
+    else:
+        response = {
+            "error": True,
+            "message": "伺服器錯誤"
+        }
+        res = make_response(response, 500)
+        cursor.close()
+        connection_object3.close()
+        return res

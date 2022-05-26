@@ -22,6 +22,9 @@
 			<div id="login_or_singup"  class = "login_and_reserve_font">登入/註冊
                 <div class="shape-line" ></div>
             </div>
+            <div id="member_area"  class = "login_and_reserve_font">會員專區
+                <div class="shape-line" ></div>
+            </div>
 		</div>
 	</div>
 
@@ -72,9 +75,10 @@
             <div id="login_icon_close_block">
                 <img src="../static/img/icon_close.png">
             </div>
-            <input type="text" class="longin_input" placeholder="請輸入帳號"/>
-            <input type="text" class="longin_input" placeholder="請輸入密碼"/>
+            <input type="text" id="login_username" class="longin_input" placeholder="請輸入帳號"/>
+            <input type="password" id="login_password" class="longin_input" placeholder="請輸入密碼"/>
             <div id="login_click">登入帳戶</div>
+            <div id="login_status">&nbsp</div>
             <div id="convert_to_signup">點此註冊</div>
         </div>
     </div>
@@ -90,7 +94,7 @@
             <input type="text" id="signup_username" class="longin_input" name="username" placeholder="  請輸入帳號"/>
             <input type="password" id="signup_password" class="longin_input" name="password" placeholder="  請輸入密碼"/>
             <input type="text" id="signup_email" class="longin_input" name="email" placeholder="  請輸入電子信箱"/>
-            <div id="signup_click"  onclick = "member_signup()">註冊新帳戶</div>
+            <div id="signup_click">註冊新帳戶</div>
             <div id="signup_status">&nbsp</div>
             <div id="convert_to_login">已經有帳戶? 點此登入</div>
         </div>

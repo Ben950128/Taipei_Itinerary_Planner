@@ -36,6 +36,9 @@ body {
     position: relative; 
     cursor: pointer;
 }
+#member_area {
+    display: none;
+}
 .shape-line {
     width: 0%; 
     height: 1px; 
@@ -291,7 +294,7 @@ body {
 #login_click:hover, #signup_click:hover {
     background-color: rgb(85, 134, 212);
 }
-#signup_status {
+#signup_status, #login_status {
     width: 300px;
     font-family: 'Noto Sans TC', sans-serif; 
     font-weight: 400; 
@@ -299,6 +302,10 @@ body {
     color: rgb(175, 36, 36);
     text-align: center;
     margin-top: -5px;
+}
+#login_status {
+    margin-top: -10px;
+    margin-bottom: -8px;
 }
 #convert_to_signup, #convert_to_login {
     font-family: 'Noto Sans TC', sans-serif; 
@@ -352,6 +359,7 @@ body {
         margin-left: 30px;
         width: 200px;
     }
-    /* .computer{display:none}
-    .mobile{flex:1;display:flex;justify-content:flex-end;align-items:center;} */
+    .login_and_reserve_font {
+        margin-left: -5px;
+    }
 }

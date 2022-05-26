@@ -7,28 +7,28 @@ let search_attraction_buttun = document.getElementById("search_attraction_buttun
 
 // 分頁頁碼的addEventListener
 click_paging.forEach(item => {
-    item.addEventListener('click', event => {
+    item.addEventListener("click", event => {
         let click_page_textContent = event.target.textContent;
         specify_page(click_page_textContent);
     })
 })
 
 // 選擇行政區的addEventListener，選擇行政區當下頁數從第一頁開始
-select_distric.addEventListener('change', () => {
-    search_attraction_input.value = '';
+select_distric.addEventListener("change", () => {
+    search_attraction_input.value = "";
     page = 1;
     specify_page(page);
 })
 
 // 輸入關鍵字的addEventListener
-search_attraction_buttun.addEventListener('click', () => {
+search_attraction_buttun.addEventListener("click", () => {
     select_distric.value = "請選擇區域";
     page = 1;
     specify_page(page);
 })
 
 // 按下enter key便可查詢
-search_attraction_input.addEventListener('keypress', (event) => {
+search_attraction_input.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
     select_distric.value = "請選擇區域";
     page = 1;
@@ -69,7 +69,7 @@ async function specify_page(click_page_textContent) {
     reset_render();
     render(datas);
     next_previous_display_icon(max_page);
-    window.scrollTo({top: 400, behavior: 'smooth'});
+    window.scrollTo({top: 400, behavior: "smooth"});
 }
 
 // 判斷下一頁跟上一頁的按鈕是否要顯示
@@ -193,25 +193,25 @@ function reset_render() {
 // 刪除下一頁的按鈕
 function delete_next_page_icon() {
     let next_page_icon = document.getElementById("next_page_icon");
-    next_page_icon.style.display = 'none';
+    next_page_icon.style.display = "none";
 }
 
 // 顯示下一頁的按鈕
 function show_next_page_icon() {
     let next_page_icon = document.getElementById("next_page_icon");
-    next_page_icon.style.display = 'block';
+    next_page_icon.style.display = "block";
 }
 
 // 刪除上一頁的按鈕
 function delete_previous_page_icon() {
     let previous_page_icon = document.getElementById("previous_page_icon");
-    previous_page_icon.style.display = 'none';
+    previous_page_icon.style.display = "none";
 }
 
 // 顯示上一頁的按鈕
 function show_previous_page_icon() {
     let previous_page_icon = document.getElementById("previous_page_icon");
-    previous_page_icon.style.display = 'block';
+    previous_page_icon.style.display = "block";
 }
 
 // 更改分頁頁碼
@@ -223,11 +223,11 @@ function change_page_icon_number(max_page) {
         modify_number++
         let page_icon_text = change_page_icon_number[i].textContent
         if (page_icon_text < 1 || page_icon_text > max_page) {
-            change_page_icon_number[i].style.display = 'none'
+            change_page_icon_number[i].style.display = "none"
         }
         else {
-            change_page_icon_number[i].style.display = 'block'
+            change_page_icon_number[i].style.display = "block"
         }
     }
-    change_page_icon_number[2].style.backgroundColor = '#deecf5';
+    change_page_icon_number[2].style.backgroundColor = "#deecf5";
 }
