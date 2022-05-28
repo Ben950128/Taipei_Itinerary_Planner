@@ -11,19 +11,26 @@
 <body>
 	<div style = "display: flex; margin: 5px;">
 		<div class = "taipei_block">
-            <a href="/" style="text-decoration:none">
+            <a href="/" style="text-decoration: none">
 			    <span id="taipei_travel_title">台北旅遊</span>
             </a>
 		</div>
 		<div class = "login_and_reserve_block">
-            <div id="reserve" class = "login_and_reserve_font">預定行程
-                <div class="shape-line"></div>
+            <div>
+                <img id="member_icon" src="../static/img/user_1.png">
             </div>
 			<div id="login_or_singup" class = "login_and_reserve_font">登入/註冊
                 <div class="shape-line"></div>
             </div>
-            <div id="member_area" class = "login_and_reserve_font">會員專區
-                <div class="shape-line"></div>
+            <div>
+                <div id="member_area" class = "login_and_reserve_font">
+                    <div class="shape-line"></div>
+                </div>
+                <ul id="burger">
+                    <li>會員專區</li>
+                    <li>預定行程</li>
+                    <li id="logout">登出</li>
+                </ul>
             </div>
 		</div>
 	</div>

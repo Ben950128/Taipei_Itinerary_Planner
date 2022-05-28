@@ -5,6 +5,16 @@ body {
     margin:0px;
     background-color:#F8F8FF 
 }
+li {
+    padding: 5px 0px 5px 10px;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    cursor: pointer;
+}
+li:hover {
+    color:#4083bc;
+    background-color: #f6f6fe;
+}
 
 /* class選擇器 */
 /* 頂部白色區 */
@@ -16,7 +26,7 @@ body {
 }
 .taipei_block {
     display: flex;
-     margin-left: 15px; 
+     margin-left: 20px; 
      cursor: pointer;
 }
 #taipei_travel_title {
@@ -37,7 +47,7 @@ body {
     color: rgb(63, 63, 71); 
     font-size: 18px; 
     margin-left:10px;
-    margin-right:20px;
+    margin-right:30px;
     display: inline-block; 
     vertical-align: middle; 
     position: relative; 
@@ -57,6 +67,24 @@ body {
 }
 .login_and_reserve_font:hover .shape-line{
     width: 100%;
+}
+#member_icon {
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 30px
+}
+#burger {
+    width:100px;
+    display: none;
+    position: absolute;
+    z-index: 20;
+    padding: 10px 0px;
+    list-style: none;
+    text-align: left;
+    background-color: #fff;
+    color: #707070;
+    margin-left: -40px;
+    box-shadow: 0 0.1rem 0.5rem rgb(0 0 0 / 15%);
 }
 
 /* 最左邊圖片預覽區 */
@@ -435,7 +463,7 @@ body {
     }
 }
 
-@media screen and (max-width:650px){
+@media screen and (max-width:700px){
     #main_wrap { 
         width: 98%;
     }
@@ -463,8 +491,5 @@ body {
     }
     #introduction {
         width: 92%;
-    }
-    .login_and_reserve_font {
-        margin-left: -5px;
     }
 }

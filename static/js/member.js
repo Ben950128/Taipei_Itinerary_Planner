@@ -2,6 +2,8 @@ let login_or_singup = document.getElementById("login_or_singup");
 let signup_click = document.getElementById("signup_click");
 let login_click = document.getElementById("login_click");
 let login_password = document.getElementById("login_password");
+let member_area = document.getElementById("member_area");
+let logout = document.getElementById("logout");
 
 // --------------------------------------------------control--------------------------------------------------
 // 查看是否為登入狀態
@@ -11,9 +13,23 @@ window.addEventListener("load", async () => {
     };
     member_status = await get_data(headers);
     if(member_status !== null){
-        login_success();                    //若為登入狀態(token未過期)則顯示會員專區
+        let name = member_status.name
+        login_success(name);                    //若為登入狀態(token未過期)則顯示會員專區
     }
 })
+
+
+//會員選單的addEventListener
+member_area.addEventListener("click", () => {
+    let burger = document.getElementById("burger");
+    if (burger.style.display == "block") {
+        burger.style.display = "none";
+    }
+    else {
+        burger.style.display = "block";
+    }
+})
+
 
 // 跳出登入選單addEventListener
 login_or_singup.addEventListener("click", login_interface)
@@ -28,7 +44,8 @@ login_password.addEventListener("keypress", (event) => {
         member_login();
     }
 })
-// 會員註冊
+
+// 按下註冊新帳戶按鈕觸發
 async function member_signup() {
     let signup_name = document.getElementById("signup_name");
     let signup_username = document.getElementById("signup_username");
@@ -54,7 +71,7 @@ async function member_signup() {
     }
 }
 
-// 按下登入帳號按鈕
+// 按下登入帳號按鈕觸發
 async function member_login() {
     let login_username = document.getElementById("login_username");
     let login_password = document.getElementById("login_password");
@@ -68,12 +85,24 @@ async function member_login() {
 
     let response = await patch_data(message, headers);
     if(response.ok === true){
-        login_success();
+        let name = response.name;
+        login_success(name);
     }
     else if(response.error === true){
         login_fail();
     }
 }
+
+//按下登出的addEventListener
+logout.addEventListener("click", async () => {
+    let headers = {
+        "Content-Type": "application/json"
+    };
+    response = await delete_data(headers);
+    if (response.ok === true){
+        window.location.href = "/";
+    }
+})
 
 
 // --------------------------------------------------model--------------------------------------------------
@@ -113,6 +142,19 @@ async function patch_data(message, headers){
     return res;
 }
 
+//登出會員，delete data去"/api/members"
+async function delete_data(headers){
+    let response = await fetch("/api/members", 
+        {
+            method: "DELETE",
+            headers: headers
+        }
+    );
+    let res = await response.json();
+    return res;
+}
+
+
 // --------------------------------------------------view--------------------------------------------------
 // 開啟登入介面
 function login_interface() {
@@ -141,7 +183,7 @@ function login_interface() {
 }
 
 //登入成功後的介面
-function login_success() {
+function login_success(name) {
     let background_oppacity = document.getElementById("background_oppacity");
     let login_interface_block = document.getElementById("login_interface_block");
     let login_or_singup = document.getElementById("login_or_singup");
@@ -149,12 +191,13 @@ function login_success() {
     login_interface_block.style.visibility = "hidden";
     login_or_singup.style.display = "none";
     member_area.style.display = "inline-block";
+    member_area.innerHTML = name + "<div class='shape-line'></div>";
 }
 
 //顯示登入失敗原因
 function login_fail() {
     let login_status = document.getElementById("login_status");
-    login_status.textContent = "帳號或密碼錯誤";
+    login_status.innerText = "帳號或密碼錯誤";
 }
 
 // 開啟註冊帳號介面
@@ -185,21 +228,21 @@ function sinup_interface() {
 // 顯示註冊成功
 function signup_success() {
     let signup_status = document.getElementById("signup_status");
-    signup_status.textContent = "註冊成功";
+    signup_status.innerText = "註冊成功";
 }
 
 // 顯示註冊失敗原因
 function signup_fail(error_message) {
     let signup_status = document.getElementById("signup_status");
-    signup_status.textContent = error_message;
+    signup_status.innerText = error_message;
 }
 
 // 點此登入及註冊後顯示原因區域變成不顯示
 function original_convert_to_login() {
     let signup_status = document.getElementById("signup_status");
     let login_status = document.getElementById("login_status");
-    signup_status.textContent = "\xa0"
-    login_status.textContent = "\xa0";
+    signup_status.innerText = "\xa0"
+    login_status.innerText = "\xa0";
 }
 
 // 清空登入及註冊資料

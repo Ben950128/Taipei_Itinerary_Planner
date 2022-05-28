@@ -31,6 +31,7 @@ def if_member_login():
         response = {
             "data": {
                 "member_id": decode_token["member_id"],
+                "name": decode_token["name"],
                 "username": decode_token["username"],
                 "email": decode_token["email"]
             }
@@ -128,19 +129,22 @@ def login():
     request_json = request.get_json()
     username = request_json["username"]
     password = request_json["password"]
-    sql = ("select member_id, username, email from member where Username = %s and Password = %s")
+    sql = ("select name, member_id, username, email from member where Username = %s and Password = %s")
     val = (username,password)
     cursor.execute(sql, val)
     records_username = cursor.fetchall()
     if records_username != []:
-        member_id = records_username[0][0]
-        email = records_username[0][2]
+        name = records_username[0][0]
+        member_id = records_username[0][1]
+        email = records_username[0][3]
         response = {
-            "ok": True
+            "ok": True,
+            "name": name
         }
         token = jwt.encode(
             {
                 "member_id": member_id,
+                "name": name,
                 "username": username,
                 "email": email,
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
@@ -172,3 +176,24 @@ def login():
         cursor.close()
         connection_object3.close()
         return res
+
+
+@members.route("/members", methods = ["DELETE"])
+def logout():
+    try:
+        Token = request.cookies.get('Token')
+        response = {
+            "ok": True
+        }
+        res = make_response(response, 200)
+        res.delete_cookie("Token")
+        Token = request.cookies.get('Token')
+        print(Token)
+
+        return res
+
+    except:
+        response = {
+            "error": True
+        }
+        return make_response(response, 200)
