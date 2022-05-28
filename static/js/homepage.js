@@ -38,14 +38,14 @@ search_attraction_input.addEventListener("keypress", (event) => {
 
 // --------------------------------------------------controller--------------------------------------------------
 // 取得首頁資料
-async function first_page() {
+window.addEventListener("load", async () => {
     search_attraction_input.value = "";
     select_distric.value = "請選擇區域";
     let url = "api/attractions?page=1";
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
     render(datas);
-}
+})
 
 // 取得指定頁面資料
 async function specify_page(click_page_textContent) {

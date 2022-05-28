@@ -1,21 +1,75 @@
 let slide_index = 0;
+let booking_click = document.getElementById("booking_click");
+let heart_icon_block = document.getElementById("heart_icon_block");
+let select_travelers = document.getElementById("select_travelers");
 
 // --------------------------------------------------controller--------------------------------------------------
 // 取得首頁資料
-async function attraction_page() {
+window.addEventListener("load", async () => {
     let split_url = window.location.href.split("/");
     let url_id = split_url[split_url.length - 1];
     let url = "../api/attraction/" + String(url_id);
     let promise_datas = await fetch_data(url);
     let datas = promise_datas.Data;
     render(datas);
-}
+})
+// 錢錢的addEventListener
+select_travelers.addEventListener("change", () => {
+    let how_much = document.getElementById("how_much");
+    how_much.textContent = "新台幣" + String(select_travelers.value * 100) + "元"
+})
+
+// 預定行程的addEventListener
+booking_click.addEventListener("click", async () => {
+    let split_url = window.location.href.split("/");
+    let url_id = split_url[split_url.length - 1];
+    let select_date = document.getElementById("select_date");
+    let select_travelers = document.getElementById("select_travelers");
+    let how_much = document.getElementById("how_much");
+    let headers = {
+        "Content-Type": "application/json"
+    };
+    let message = {
+        Attraction_ID: url_id,
+        Date: select_date.value,
+        Cost: select_travelers.value * 100
+    }
+
+    if (select_date.value === "" || select_travelers.value === "請選擇人數") {
+        how_much.textContent = "請選擇日期及人數"
+    }
+    else {
+        let response = await reserve_attraction(headers, message);
+        if (response.error === true && response.message === "尚未登入系統") {
+            login_interface();
+        }
+        else {
+            window.location.href = "/booking";
+        }
+    }
+})
+
+// 按下愛心的addEventListener
+heart_icon_block.addEventListener("click", change_heart);
+
 
 // --------------------------------------------------model--------------------------------------------------
 // 根據URL取資料
 async function fetch_data(url) {
     let response = await fetch(url);
     let res = await response.json();
+    return res;
+}
+
+async function reserve_attraction(headers, message){
+    let response = await fetch("/api/booking",
+        {
+            method: "POST",
+            body: JSON.stringify(message),
+            headers: headers
+        }
+    );
+    let res = response.json();
     return res;
 }
 
@@ -27,6 +81,7 @@ function render(datas) {
     let attraction_address = document.getElementById("attraction_address");
     let attraction_tel = document.getElementById("attraction_tel");
     let introduction = document.getElementById("introduction");
+    let select_date = document.getElementById("select_date");
     let introduction_statement = document.createElement("div");
     let introduction_category = document.createElement("div");
     let prev = document.createElement("a");
@@ -61,6 +116,7 @@ function render(datas) {
     };
     introduction_category.textContent =  "主題標籤:\xa0\xa0\xa0\xa0" + categories;
     introduction.appendChild(introduction_category);
+    select_date.min = today_date();
 }
 
 
@@ -162,4 +218,27 @@ function change_heart() {
         red_heart.style.display = "block";
         white_heart.style.display = "none";
     }
+}
+
+
+//取得今天日期
+function today_date() {
+    full_date = new Date();
+    year = full_date.getFullYear();
+    if((full_date.getMonth()+1) >= 10) {
+        month = full_date.getMonth()+1
+    }
+    else {
+        month = "0" + String(full_date.getMonth()+1)
+    };
+
+    if(full_date.getDate() >= 10) {
+        date = full_date.getDate()
+    }
+    else {
+        date = "0" + String(full_date.getMonth())
+    };
+
+    today = year + "-" + month + "-" + date;
+    return today;
 }

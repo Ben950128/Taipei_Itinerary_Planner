@@ -1,4 +1,3 @@
-from urllib import response
 from flask import Blueprint, request, make_response
 from mysql.connector import pooling
 from dotenv import load_dotenv
@@ -133,9 +132,9 @@ def login():
     val = (username,password)
     cursor.execute(sql, val)
     records_username = cursor.fetchall()
-    member_id = records_username[0][0]
-    email = records_username[0][2]
     if records_username != []:
+        member_id = records_username[0][0]
+        email = records_username[0][2]
         response = {
             "ok": True
         }
@@ -144,7 +143,7 @@ def login():
                 "member_id": member_id,
                 "username": username,
                 "email": email,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=30)
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
             },
             SECRET_KEY, algorithm="HS256"
         )

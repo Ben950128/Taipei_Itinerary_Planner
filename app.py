@@ -1,25 +1,34 @@
 from flask import Flask, render_template
 from api.attractions import attractions
 from api.members import members
+from api.booking import booking
 
-# 建立application物件，可以設定靜態檔案的路徑處理
 app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
 app.register_blueprint(attractions,  url_prefix="/api")
 app.register_blueprint(members,  url_prefix="/api")
+app.register_blueprint(booking,  url_prefix="/api")
 
-# 建立路徑/對應的處理函式，為網站首頁
+
 @app.route("/")
 def index():
 	return render_template("homepage.html")
 
 
-# 建立路徑/對應的處理函式，為網站首頁
 @app.route("/attraction/<attractionId>")
 def attaction(attractionId):
 	return render_template("attraction.html")
 
 
-# 啟動網站伺服器，可透過port參數設定指定埠號
+@app.route("/member")
+def member():
+	return render_template("member.html")
+
+
+@app.route("/booking")
+def booking():
+	return render_template("booking.html")
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port = 3000)

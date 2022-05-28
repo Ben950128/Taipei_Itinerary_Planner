@@ -1,9 +1,10 @@
 let login_or_singup = document.getElementById("login_or_singup");
 let signup_click = document.getElementById("signup_click");
 let login_click = document.getElementById("login_click");
+let login_password = document.getElementById("login_password");
 
 // --------------------------------------------------control--------------------------------------------------
-
+// 查看是否為登入狀態
 window.addEventListener("load", async () => {
     let headers = {
         "Content-Type": "application/json"
@@ -22,9 +23,13 @@ signup_click.addEventListener("click", member_signup)
 
 // 登入帳戶按鈕addEventListener
 login_click.addEventListener("click", member_login)
-
+login_password.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        member_login();
+    }
+})
 // 會員註冊
-function member_signup() {
+async function member_signup() {
     let signup_name = document.getElementById("signup_name");
     let signup_username = document.getElementById("signup_username");
     let signup_password = document.getElementById("signup_password");
@@ -39,11 +44,18 @@ function member_signup() {
         "Content-Type": "application/json"
     };
 
-    post_data(message, headers);
+    let response = await post_data(message, headers);
+    if(response.ok === true){
+        signup_success();
+    }
+    else if(response.error === true){
+        error_message = response.message;
+        signup_fail(error_message);
+    }
 }
 
-// 會員登入
-function member_login() {
+// 按下登入帳號按鈕
+async function member_login() {
     let login_username = document.getElementById("login_username");
     let login_password = document.getElementById("login_password");
     let message = {
@@ -54,65 +66,55 @@ function member_login() {
         "Content-Type": "application/json"
     };
 
-    patch_data(message, headers);
+    let response = await patch_data(message, headers);
+    if(response.ok === true){
+        login_success();
+    }
+    else if(response.error === true){
+        login_fail();
+    }
 }
 
 
 // --------------------------------------------------model--------------------------------------------------
 //GET會員狀態
 async function get_data(headers){
-    let response = await fetch("/api/members", {
-        method: "GET",
-        headers: headers
-    });
+    let response = await fetch("/api/members", 
+        {
+            method: "GET",
+            headers: headers
+        }
+    );
     let res = await response.json();
-    console.log(res.data)
     return res.data;
 }
 
-// POST註冊會員資料
-function post_data(message, headers){
-    fetch("/api/members",{                         //POST註冊資料去"/api/members"
-        method: "POST",
-        body: JSON.stringify(message),
-        headers: headers
-    })
-    .then(function(response){                   // 接收/api/members的return
-        return response.json()
-    })
-    .then(function(res){
-        if(res.ok === true){
-            signup_success();
+// POST註冊會員資料，POST註冊資料去"/api/members"
+async function post_data(message, headers){
+    let response = await fetch("/api/members", 
+        {
+            method: "POST",
+            body: JSON.stringify(message),
+            headers: headers
         }
-        else if(res.error === true){
-            error_message = res.message;
-            signup_fail(error_message);
-        }
-    })
+    );
+    let res = response.json();
+    return res;
 }
 
-// 登入會員
-function patch_data(message, headers){
-    fetch("/api/members",{                         //PATCH資料去"/api/members"
+// 登入會員傳送資料給後端，PATCH資料去"/api/members"
+async function patch_data(message, headers){
+    let response = await fetch("/api/members",{
         method: "PATCH",
         body: JSON.stringify(message),
         headers: headers
-    })
-    .then(function(response){                   // 接收/api/members的return
-        return response.json();
-    })
-    .then(function(res){
-        if(res.ok === true){
-            login_success();
-        }
-        else if(res.error === true){
-            login_fail();
-        }
-    })
+    });
+    let res = response.json();
+    return res;
 }
 
 // --------------------------------------------------view--------------------------------------------------
-// 登入介面
+// 開啟登入介面
 function login_interface() {
     let background_oppacity = document.getElementById("background_oppacity");
     let login_interface_block = document.getElementById("login_interface_block");
@@ -129,7 +131,7 @@ function login_interface() {
         original_convert_to_login();
     })
 
-    // 按下點次註冊後觸發
+    // 按下"點此註冊"後觸發
     convert_to_signup.addEventListener("click", () => {
         login_interface_block.style.visibility = "hidden";
         sinup_interface();
@@ -155,7 +157,7 @@ function login_fail() {
     login_status.textContent = "帳號或密碼錯誤";
 }
 
-// 註冊帳號介面
+// 開啟註冊帳號介面
 function sinup_interface() {
     let background_oppacity = document.getElementById("background_oppacity");
     let signup_interface_block = document.getElementById("signup_interface_block");
@@ -171,7 +173,7 @@ function sinup_interface() {
         original_convert_to_login();
     })
 
-    // 按下點次登入後觸發
+    // 按下"點此登入"後觸發
     convert_to_login.addEventListener('click', () => {
         signup_interface_block.style.visibility = "hidden";
         login_interface();
