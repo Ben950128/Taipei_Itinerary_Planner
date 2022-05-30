@@ -13,10 +13,10 @@ window.addEventListener("load", async () => {
     let datas = promise_datas.Data;
     render(datas);
 })
-// 錢錢的addEventListener
+// 出現多少錢錢的addEventListener
 select_travelers.addEventListener("change", () => {
-    let how_much = document.getElementById("how_much");
-    how_much.textContent = "新台幣" + String(select_travelers.value * 100) + "元"
+    let reserve_status = document.getElementById("reserve_status");
+    reserve_status.textContent = "新台幣" + String(select_travelers.value * 100) + "元"
 })
 
 // 預定行程的addEventListener
@@ -25,7 +25,7 @@ booking_click.addEventListener("click", async () => {
     let url_id = split_url[split_url.length - 1];
     let select_date = document.getElementById("select_date");
     let select_travelers = document.getElementById("select_travelers");
-    let how_much = document.getElementById("how_much");
+    let reserve_status = document.getElementById("reserve_status");
     let headers = {
         "Content-Type": "application/json"
     };
@@ -36,7 +36,7 @@ booking_click.addEventListener("click", async () => {
     }
 
     if (select_date.value === "" || select_travelers.value === "請選擇人數") {
-        how_much.textContent = "請選擇日期及人數"
+        reserve_status.textContent = "請選擇日期及人數"
     }
     else {
         let response = await reserve_attraction(headers, message);

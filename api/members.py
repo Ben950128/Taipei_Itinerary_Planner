@@ -147,7 +147,7 @@ def login():
                 "name": name,
                 "username": username,
                 "email": email,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=20)
             },
             SECRET_KEY, algorithm="HS256"
         )
@@ -181,15 +181,11 @@ def login():
 @members.route("/members", methods = ["DELETE"])
 def logout():
     try:
-        Token = request.cookies.get('Token')
         response = {
             "ok": True
         }
         res = make_response(response, 200)
         res.delete_cookie("Token")
-        Token = request.cookies.get('Token')
-        print(Token)
-
         return res
 
     except:

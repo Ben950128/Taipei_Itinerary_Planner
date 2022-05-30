@@ -5,6 +5,7 @@
 	<meta name = "viewport" content = "width=device-width,initial-scale=1,maximum-scale=1"/>
 	<title>Taipei Itinerary Planner</title>
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login_signup_interface.css') }}">
     <script src="{{ url_for('static',filename='js/member.js') }}" defer></script>
     <script src="{{ url_for('static',filename='js/homepage.js') }}" defer></script>
 </head>
@@ -18,19 +19,17 @@
 		<div class = "login_and_reserve_block">
             <div>
                 <img id="member_icon" src="../static/img/user_1.png">
-            </div>
-			<div id="login_or_singup" class = "login_and_reserve_font">登入/註冊
-                <div class="shape-line"></div>
-            </div>
-            <div>
-                <div id="member_area" class = "login_and_reserve_font">
-                    <div class="shape-line"></div>
-                </div>
                 <ul id="burger">
                     <li>會員專區</li>
                     <li>預定行程</li>
                     <li id="logout">登出</li>
                 </ul>
+            </div>
+			<div id="login_or_singup" class = "login_and_reserve_font">登入/註冊
+                <div class="shape-line"></div>
+            </div>
+            <div id="member_area" class = "login_and_reserve_font">
+                <div class="shape-line"></div>
             </div>
 		</div>
 	</div>

@@ -5,9 +5,9 @@ from api.booking import booking
 
 app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
-app.register_blueprint(attractions,  url_prefix="/api")
-app.register_blueprint(members,  url_prefix="/api")
-app.register_blueprint(booking,  url_prefix="/api")
+app.register_blueprint(attractions, url_prefix="/api")
+app.register_blueprint(members, url_prefix="/api")
+app.register_blueprint(booking, url_prefix="/api")
 
 
 @app.route("/")
