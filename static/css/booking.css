@@ -20,14 +20,13 @@ li:hover {
 /* 頂部白色區 */
 .top_block {
     display: flex; 
-    margin: 5px; 
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e8e8e8f3;
+    margin: 5px auto 10px auto; 
+    width: 1200px; 
 }
 .taipei_block {
     display: flex;
-     margin-left: 25px; 
-     cursor: pointer;
+    margin-left: 20px; 
+    cursor: pointer;
 }
 #taipei_travel_title {
     font-size: 28px; 
@@ -40,6 +39,7 @@ li:hover {
     display: flex; 
     justify-content: flex-end; 
     align-items: center;
+    padding-right: 20px;
 }
 .login_and_reserve_font {
     font-family: 'Noto Sans TC', sans-serif; 
@@ -47,7 +47,7 @@ li:hover {
     color: rgb(63, 63, 71); 
     font-size: 18px; 
     margin-left:10px;
-    margin-right:32px;
+    margin-right:10px;
     display: inline-block; 
     vertical-align: middle; 
     position: relative; 
@@ -87,6 +87,174 @@ li:hover {
     box-shadow: 0 0.1rem 0.5rem rgb(0 0 0 / 15%);
 }
 
+/* 預定行程區 */
+#main_wrap {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    width: 1200px;
+    margin: 30px auto 30px auto;
+}
+#say_hello_block {
+    font-size: 0px;
+    width: 1200px;
+    padding-left: 50px;
+    margin-bottom: 30px;
+}
+.say_hello_span {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(107, 107, 116);
+}
+.no_booking {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: rgb(107, 107, 116);
+    width: 1200px;
+    padding-left: 50px;
+}
+#booking_detail_block {
+    display: flex;
+    width: 1200px;
+    padding-left: 50px
+}
+.img_block {
+    width: 25%;
+    height: 200px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+}
+#booking_img {
+    width: 100%;
+}
+
+#booking_detail {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    color: rgb(63, 63, 71);
+    margin-left: 25px;
+}
+.booking_detail_span {
+    margin-bottom: 15px;
+}
+#attraction {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 500;
+    font-size: 22px;
+    color: #456ea7f0;
+}
+#trash_block {
+    flex: 1;
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: flex-start;
+    padding-right: 50px;
+}
+#trash {
+    width: 20px;
+    opacity: 70%;
+    cursor: pointer;
+}
+#trash:hover {
+    opacity: 50%;
+}
+.bottom_hr {
+    margin: 30px 0px 20px 0px;
+    width: 1185px; 
+    border: 1px solid #e6e6e6;
+}
+.click_to_booking_block {
+    width: 1200px;
+    padding-left: 50px;
+}
+.click_to_booking {
+    margin: 50px 0px 10px 0px; 
+    width: 150px; 
+    text-align: center; 
+    line-height: 45px;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    font-size: 18px; 
+    color: white;
+    background-color: #497cc4;
+    border-radius: 5px; 
+    cursor: pointer;
+}
+.click_to_booking:hover {
+    background-color: rgb(85, 134, 212);
+}
+
+/* 個人資訊區 */
+.user_detail_block {
+    width: 1200px;
+    padding-left: 50px;
+}
+.user_detail_span, .credict_card_block {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(63, 63, 71);
+    margin-top: 20px;
+}
+.credict_card_block {
+    display: flex;
+    margin-top: 20px;
+}
+#your_info {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 700;
+}
+#contact_name, #contact_email, #user_phone, .tpfield {
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(51, 51, 57);
+    width: 200px;
+    height: 30px;
+    border: solid #9f9f9f 1px;
+    outline: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    padding-left: 10px;
+}
+.tpfield {
+    height: 32px;
+    width: 202px;
+    margin-left: 5px;
+    margin-top: -5px;
+}
+#total_price_block {
+    display: flex; 
+    justify-content: flex-end;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(63, 63, 71);
+    margin-right: 100px;
+}
+#pay_money_block {
+    display: flex; 
+    justify-content: flex-end;
+}
+#pay_money {
+    margin: 20px 100px 10px 20px; 
+    width: 120px; 
+    text-align: center; 
+    line-height: 40px;
+    font-family: 'Noto Sans TC', sans-serif; 
+    font-weight: 400; 
+    font-size: 18px; 
+    color: white;
+    background-color: #497cc4;
+    border-radius: 5px; 
+    cursor: pointer;
+}
+#pay_money:hover {
+    background-color: rgb(85, 134, 212);
+}
 
 /* 底部配色 */
 .page_bottom {
@@ -102,11 +270,43 @@ li:hover {
 
 
 @media screen and (max-width:1200px){
-
+    .top_block, #main_wrap, #say_hello_block, #booking_detail_block, .user_detail_block, .no_booking, .click_to_booking_block {
+        width: 95%;
+    }
+    .img_block {
+        width: 300px;
+    }
+    #booking_img {
+        object-fit: cover;
+    }
+    #trash_block {
+        padding-right: 20px;
+    }
 }
 
-@media screen and (max-width:700px){
+@media screen and (max-width:650px){
     #member_icon {
         margin-right: 5px;
+    }
+    #say_hello_block, #booking_detail_block {
+        padding-left: 0px;
+        flex-wrap: wrap;
+    }
+    .user_detail_block, .no_booking, .click_to_booking_block {
+        padding-left: 0px;
+    }
+    .img_block {
+        margin: 0px auto 0px auto;
+        width: 100%;
+        height: 300px;
+    }
+    #booking_detail {
+        margin: 30px 0px 0px 0px;
+    }
+    #trash_block {
+        padding-top: 35px;
+    }
+    #total_price_block, #pay_money {
+        margin-right: 50px;
     }
 }

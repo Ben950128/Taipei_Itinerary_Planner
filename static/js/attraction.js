@@ -27,6 +27,7 @@ booking_click.addEventListener("click", async () => {
     let select_travelers = document.getElementById("select_travelers");
     let reserve_status = document.getElementById("reserve_status");
     let headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json"
     };
     let message = {
@@ -39,7 +40,7 @@ booking_click.addEventListener("click", async () => {
         reserve_status.textContent = "請選擇日期及人數"
     }
     else {
-        let response = await reserve_attraction(headers, message);
+        let response = await post_booking(headers, message);
         if (response.error === true && response.message === "尚未登入系統") {
             login_interface();
         }
@@ -61,9 +62,8 @@ async function fetch_data(url) {
     return res;
 }
 
-async function reserve_attraction(headers, message){
-    let response = await fetch("/api/booking",
-        {
+async function post_booking(headers, message){
+    let response = await fetch("/api/booking",{
             method: "POST",
             body: JSON.stringify(message),
             headers: headers

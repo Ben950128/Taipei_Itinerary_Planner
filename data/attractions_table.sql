@@ -105,6 +105,23 @@ CREATE TABLE  `member` (
   `Password` VARCHAR(45) NOT NULL COMMENT 'Password',
   `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
   `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
-  
+
 describe member;
 select * from member;
+drop table member;
+select * from member where Username = "test" and Password = "test";
+
+
+# 創建預定行程表格(未付款)------------------------------------------------------------------------------------------
+CREATE TABLE  `booking` (
+  `Booking_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Booking_ID' PRIMARY KEY,
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
+  `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  `Date` VARCHAR(45) NOT NULL COMMENT 'Date',
+  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost');
+  
+select * from booking where Username = "test" and Attraction_ID = 2261 and Date = "2022-05-29";
+drop table booking;
+
+

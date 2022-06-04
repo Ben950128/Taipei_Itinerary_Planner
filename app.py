@@ -20,11 +20,6 @@ def attaction(attractionId):
 	return render_template("attraction.html")
 
 
-@app.route("/member")
-def member():
-	return render_template("member_area.html")
-
-
 @app.route("/booking")
 def booking():
 	return render_template("booking.html")

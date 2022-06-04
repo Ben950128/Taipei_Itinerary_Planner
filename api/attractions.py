@@ -15,7 +15,6 @@ connection_pool = pooling.MySQLConnectionPool(
     database='taipei_tourism',
     user='root',
     password=MYSQL_DB_PASSWORD,
-    auth_plugin='mysql_native_password'
 )
 
 # ------------------輸出景點資料------------------

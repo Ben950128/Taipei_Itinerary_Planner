@@ -62,6 +62,7 @@
     border: solid rgb(121, 121, 121) 0.5px; 
     outline:none;
     font-size: 16px;
+    padding-left: 10px;
 }
 #login_click, #signup_click {
     font-family: 'Noto Sans TC', sans-serif; 

@@ -19,10 +19,9 @@ connection_pool = pooling.MySQLConnectionPool(
     database='taipei_tourism',
     user='root',
     password=MYSQL_DB_PASSWORD,
-    auth_plugin='mysql_native_password'
 )
 
-
+# 載入頁面時取得登入狀態
 @members.route("/members", methods = ["GET"])
 def if_member_login():
     try:
@@ -45,6 +44,7 @@ def if_member_login():
         return make_response(response, 200)
 
 
+# 註冊帳號
 @members.route("/members", methods = ["POST"])
 def signup():
     connection_object2 = connection_pool.get_connection()
@@ -122,6 +122,7 @@ def signup():
         connection_object2.close()
 
 
+# 登入帳號並將JWT放進cookie
 @members.route("/members", methods = ["PATCH"])
 def login():
     connection_object3 = connection_pool.get_connection()
@@ -141,8 +142,7 @@ def login():
             "ok": True,
             "name": name
         }
-        token = jwt.encode(
-            {
+        token = jwt.encode({
                 "member_id": member_id,
                 "name": name,
                 "username": username,
@@ -178,6 +178,7 @@ def login():
         return res
 
 
+# 登出帳號
 @members.route("/members", methods = ["DELETE"])
 def logout():
     try:

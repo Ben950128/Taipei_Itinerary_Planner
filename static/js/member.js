@@ -4,14 +4,16 @@ let login_click = document.getElementById("login_click");
 let login_password = document.getElementById("login_password");
 let member_area = document.getElementById("member_area");
 let logout = document.getElementById("logout");
+let already_booking = document.getElementById("already_booking");
 
 // --------------------------------------------------control--------------------------------------------------
 // 查看是否為登入狀態
 window.addEventListener("load", async () => {
     let headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json"
     };
-    member_status = await get_data(headers);
+    member_status = await get_member_data(headers);
     if(member_status !== null){
         let name = member_status.name
         login_success(name);                    //若為登入狀態(token未過期)則顯示會員專區
@@ -19,8 +21,8 @@ window.addEventListener("load", async () => {
 })
 
 
-//會員選單的addEventListener
-member_area.addEventListener("click", () => {
+//會員選單burger的addEventListener
+member_area.addEventListener("click", (e) => {
     let burger = document.getElementById("burger");
     if (burger.style.display == "block") {
         burger.style.display = "none";
@@ -28,14 +30,20 @@ member_area.addEventListener("click", () => {
     else {
         burger.style.display = "block";
     }
+    e.stopPropagation();                 //阻止向上冒泡，此例為不會觸發document.body.addEventListener
 })
 
 
-// 跳出登入選單addEventListener
-login_or_singup.addEventListener("click", login_interface)
+//點擊空白區觸發
+document.body.addEventListener("click", () => {
+    let burger = document.getElementById("burger");
+    if (burger.style.display == "block") {
+        burger.style.display = "none";
+    }
+})
 
-// 註冊新帳戶的按鈕addEventListener
-signup_click.addEventListener("click", member_signup)
+// 按下登入/註冊按鈕後，跳出登入選單addEventListener
+login_or_singup.addEventListener("click", login_interface)
 
 // 登入帳戶按鈕addEventListener
 login_click.addEventListener("click", member_login)
@@ -44,6 +52,33 @@ login_password.addEventListener("keypress", (event) => {
         member_login();
     }
 })
+
+// 按下登入帳號按鈕觸發
+async function member_login() {
+    let login_username = document.getElementById("login_username");
+    let login_password = document.getElementById("login_password");
+    let message = {
+        username : login_username.value,
+        password : login_password.value,
+    };
+    let headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    };
+
+    let response = await patch_member_data(message, headers);
+    if(response.ok === true){
+        let name = response.name;
+        login_success(name);
+    }
+    else if(response.error === true){
+        login_fail();
+    }
+}
+
+// 註冊新帳戶的按鈕addEventListener
+signup_click.addEventListener("click", member_signup)
+
 
 // 按下註冊新帳戶按鈕觸發
 async function member_signup() {
@@ -58,10 +93,11 @@ async function member_signup() {
         email : signup_email.value
     };
     let headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json"
     };
 
-    let response = await post_data(message, headers);
+    let response = await post_member_data(message, headers);
     if(response.ok === true){
         signup_success();
     }
@@ -71,45 +107,29 @@ async function member_signup() {
     }
 }
 
-// 按下登入帳號按鈕觸發
-async function member_login() {
-    let login_username = document.getElementById("login_username");
-    let login_password = document.getElementById("login_password");
-    let message = {
-        username : login_username.value,
-        password : login_password.value,
-    };
-    let headers = {
-        "Content-Type": "application/json"
-    };
-
-    let response = await patch_data(message, headers);
-    if(response.ok === true){
-        let name = response.name;
-        login_success(name);
-    }
-    else if(response.error === true){
-        login_fail();
-    }
-}
 
 //按下登出的addEventListener
 logout.addEventListener("click", async () => {
     let headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json"
     };
-    response = await delete_data(headers);
+    response = await delete_member_data(headers);
     if (response.ok === true){
         window.location.href = "/";
     }
 })
 
+// 會員選單的預定行程按鈕
+already_booking.addEventListener("click", () => {
+    window.location.href = "/booking";
+})
+
 
 // --------------------------------------------------model--------------------------------------------------
 //GET會員狀態
-async function get_data(headers){
-    let response = await fetch("/api/members", 
-        {
+async function get_member_data(headers){
+    let response = await fetch("/api/members", {
             method: "GET",
             headers: headers
         }
@@ -119,9 +139,8 @@ async function get_data(headers){
 }
 
 // POST註冊會員資料，POST註冊資料去"/api/members"
-async function post_data(message, headers){
-    let response = await fetch("/api/members", 
-        {
+async function post_member_data(message, headers){
+    let response = await fetch("/api/members", {
             method: "POST",
             body: JSON.stringify(message),
             headers: headers
@@ -132,7 +151,7 @@ async function post_data(message, headers){
 }
 
 // 登入會員傳送資料給後端，PATCH資料去"/api/members"
-async function patch_data(message, headers){
+async function patch_member_data(message, headers){
     let response = await fetch("/api/members",{
         method: "PATCH",
         body: JSON.stringify(message),
@@ -143,9 +162,8 @@ async function patch_data(message, headers){
 }
 
 //登出會員，delete data去"/api/members"
-async function delete_data(headers){
-    let response = await fetch("/api/members", 
-        {
+async function delete_member_data(headers){
+    let response = await fetch("/api/members", {
             method: "DELETE",
             headers: headers
         }
@@ -237,7 +255,7 @@ function signup_fail(error_message) {
     signup_status.innerText = error_message;
 }
 
-// 點此登入及註冊後顯示原因區域變成不顯示
+// 點此登入及註冊後，顯示原因區域變成不顯示
 function original_convert_to_login() {
     let signup_status = document.getElementById("signup_status");
     let login_status = document.getElementById("login_status");

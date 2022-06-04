@@ -21,7 +21,7 @@
                 <img id="member_icon" src="../static/img/user_1.png">
                 <ul id="burger">
                     <li>會員專區</li>
-                    <li>預定行程</li>
+                    <li id="already_booking">預定行程</li>
                     <li id="logout">登出</li>
                 </ul>
             </div>
@@ -33,6 +33,8 @@
             </div>
 		</div>
 	</div>
+
+    <div style="border-bottom: 1px solid #e8e8e8f3"></div>
 
     <div id="main_wrap">
         <div id="preview_img_wrap"></div>
@@ -98,10 +100,10 @@
             <div id="signup_icon_close_block">
                 <img src="../static/img/icon_close.png">
             </div>
-            <input type="text" id="signup_name" class="longin_input" name="name" placeholder="  請輸入姓名"/>
-            <input type="text" id="signup_username" class="longin_input" name="username" placeholder="  請輸入帳號"/>
-            <input type="password" id="signup_password" class="longin_input" name="password" placeholder="  請輸入密碼"/>
-            <input type="text" id="signup_email" class="longin_input" name="email" placeholder="  請輸入電子信箱"/>
+            <input type="text" id="signup_name" class="longin_input" placeholder="請輸入姓名"/>
+            <input type="text" id="signup_username" class="longin_input" placeholder="請輸入帳號"/>
+            <input type="password" id="signup_password" class="longin_input" placeholder="請輸入密碼"/>
+            <input type="text" id="signup_email" class="longin_input" placeholder="請輸入電子信箱"/>
             <div id="signup_click">註冊新帳戶</div>
             <div id="signup_status">&nbsp</div>
             <div id="convert_to_login">已經有帳戶? 點此登入</div>

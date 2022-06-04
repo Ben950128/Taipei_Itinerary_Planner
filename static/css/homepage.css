@@ -18,9 +18,16 @@ li:hover {
 
 /* class選擇器 */
 /* 頂部白色區 */
+.top_block {
+    display: flex; 
+    margin: 5px;
+    width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
 .taipei_block {
     display: flex; 
-    margin-left: 25px; 
+    margin-left: 20px; 
     cursor: pointer;
 }
 #taipei_travel_title {
@@ -34,6 +41,7 @@ li:hover {
     display: flex; 
     justify-content: flex-end; 
     align-items: center;
+    padding-right: 20px;
 }
 .login_and_reserve_font {
     font-family: 'Noto Sans TC', sans-serif; 
@@ -41,7 +49,7 @@ li:hover {
     color: rgb(63, 63, 71); 
     font-size: 18px; 
     margin-left:10px;
-    margin-right:32px;
+    margin-right:10px;
     display: inline-block; 
     vertical-align: middle; 
     position: relative; 
@@ -90,19 +98,30 @@ li:hover {
     background-position: center; 
     filter: grayscale(20%);
 }
-.go_explore_taipei {
+.go_explore_taipei_block {
+    display: flex;
+    width: 1200px;
+    margin: 0px auto 0px auto;
+}
+.go_explore_taipei_span {
     font-size: 32px; 
     font-family: 'Noto Sans TC', sans-serif; 
     color: white; 
     padding-top: 80px; 
-    padding-left: 45px
+    padding-left: 25px
+}
+.search_block {
+    display: flex;
+    width: 1200px; 
+    margin: 65px auto 0px auto;
 }
 #search_attraction_input {
     font-family: 'Noto Sans TC', sans-serif; 
     font-weight: 400;
     font-size: 17px; 
     width: 270px; 
-    margin-left: 45px; 
+    margin-left: 25px;
+    padding-left: 10px;
     border-top-left-radius: 5px; 
     border-bottom-left-radius: 5px;
     border: none; 
@@ -190,7 +209,7 @@ li:hover {
 .name_left, .category_left {
     padding-left: 8px; 
     font-weight: bold; 
-    color: rgb(63, 63, 71)
+    color: rgb(63, 63, 71);
 }
 .district_right {
     flex: 1; 
@@ -245,6 +264,15 @@ li:hover {
 
 
 @media screen and (max-width:1200px){
+    .top_block {
+        width: 98%;
+    }
+    .go_explore_taipei_block {
+        width:98%;
+    }
+    .search_block {
+        width:98%;
+    }
     #main_wrap { 
         width: 90%;
     }
@@ -265,11 +293,11 @@ li:hover {
     .page_icon_box { 
         width: 97%;
     }
-    .go_explore_taipei {
-        padding-left: 30px;
+    .go_explore_taipei_span {
+        padding-left: 15px;
     }
     #search_attraction_input { 
-        margin-left: 30px;
+        margin-left: 15px;
         width: 200px;
     }
     #member_icon {
