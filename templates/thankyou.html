@@ -4,10 +4,10 @@
 	<meta charset="utf-8"></meta>
 	<meta name = "viewport" content = "width=device-width,initial-scale=1,maximum-scale=1"/>
 	<title>Taipei Itinerary Planner</title>
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/attraction.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/thankyou.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/include_all.css') }}">
     <script src="{{ url_for('static',filename='js/member.js') }}" defer></script>
-    <script src="{{ url_for('static',filename='js/attraction.js') }}" defer></script>
+    <script src="{{ url_for('static',filename='js/thankyou.js') }}" defer></script>
 </head>
 <body>
 	<div class="top_block">
@@ -33,51 +33,22 @@
             </div>
 		</div>
 	</div>
-
     <div style="border-bottom: 1px solid #e8e8e8f3"></div>
 
+    <!-- 感謝區 -->
     <div id="main_wrap">
-        <div id="preview_img_wrap"></div>
-        <div id="main_img_wrap"></div>
-        <div class="detail_and_reserve">
-            <div style="display: flex">
-                <div id="attraction_name"></div>
-                <div id="heart_icon_block">
-                    <img id="white_heart" src="{{url_for('static', filename='img/heart_white.png')}}">
-                    <img id="red_heart" src="{{url_for('static', filename='img/heart_red.png')}}">
-                </div>
-            </div>
-            <div class="line_under_attraction_name"></div>
-            <div id="attraction_address" class="detail"></div>
-            <div id="attraction_tel" class="detail"></div>
-            <div class="detail">費用: &nbsp100 元/人</div>
-
-            <div class = "attraction_div">
-                <span class="select_span">選擇日期: &nbsp</span>
-                    <input id="select_date" type="date">
-            </div>
-
-            <div class="attraction_div">
-                <span class="select_span">選擇人數: &nbsp</span>
-                <select id = 'select_travelers'>
-                    <option value="請選擇人數" selected disabled>請選擇人數</option>    
-                    <option value="1">1位</option>
-                    <option value="2">2位</option>
-                    <option value="3">3位</option>
-                    <option value="4">4位</option>
-                    <option value="5">5位</option>
-                </select>
-            </div>
-            <div id="booking_div">
-                <div id="booking_click">預定行程</div>
-                <div id="reserve_status">&nbsp</div>
-            </div>
+        <div id="thankyou">THANK YOU !</div>
+        <div class="success">預定成功 !</div>
+        <div class="success">您的訂單編號為: 
+            <span id="order_id"></span>
+        </div>
+        <div class="success">詳情可前往會員專區查看</div>
+        <div class="success">感謝您的訂購，歡迎再次光臨 ~</div>
+        <div id="continue_booking_div">
+            <div id="continue_booking_click">繼續預定行程</div>
         </div>
     </div>
 
-    <hr class="bottom_hr">
-    <div id="introduction"></div>
-    
     <!-- 登入系統 -->
     <div id="login_interface_block">
         <div class="login_interface_top">
@@ -114,6 +85,5 @@
     <footer class="page_bottom">
         <div>資料來源 : 臺北旅遊網 Open API</div>
     </footer>
-
 </body>
 <html>

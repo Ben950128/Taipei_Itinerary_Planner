@@ -1,3 +1,4 @@
+TPDirect.setupSDK("124741", "app_4ONtUGf8blFNVyDTYkljeUa7eN4XpQ67QJKQ7fam8pjflrEwQMu6sRv52NaH", "sandbox");
 let trash = document.getElementById("trash");
 
 // --------------------------------------------------control--------------------------------------------------
@@ -7,14 +8,19 @@ window.addEventListener("load", async () => {
         "Accept": "application/json"
     };
     let datas = await get_booking(headers);
+
     if (datas.message === "無任何待預定行程") {
         show_no_booking(datas);
+    }
+    else if(datas.message === "尚未登入系統") {
+        window.location.href = "/";
     }
     else {
         show_booking (datas);
     }
 })
 
+// 刪除booking的資料
 trash.addEventListener("click", async () => {
     let headers = {
         "Accept": "application/json"
@@ -24,6 +30,46 @@ trash.addEventListener("click", async () => {
         show_no_booking(datas);
     }
 })
+
+// 確認付款order
+function tappay_get_prime(datas, user_phone) {
+    TPDirect.card.getPrime(async (result) => {
+        if (result.status !== 0) {
+            alert("請輸入正確的電話及信用卡資訊")
+            return
+        }
+        let prime = result.card.prime;
+        let headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        };
+        let message = {
+            "prime": prime,
+            "order": {
+                "price": datas.cost,
+                "trip": {
+                    "attraction": {
+                        "id": datas.data.attraction_id,
+                        "name": datas.data.attraction_name,
+                        "address": datas.data.attraction_address.substring(4, datas.data.attraction_address.length),
+                        "image": datas.data.attarction_image
+                    },
+                    "date": datas.date
+                },
+                "contact": {
+                    "name": datas.name,
+                    "email": datas.email,
+                    "phone": user_phone.value
+                }
+            }
+        }
+        let data =  await post_order(headers, message);
+        let delete_data = await delete_booking(headers);
+        if (delete_data.ok === true) {
+            window.location.href = "/thankyou?number=" + data.order_number;
+        }
+    })
+}
 
 // --------------------------------------------------model--------------------------------------------------
 //GET方法取得booking資料
@@ -46,6 +92,17 @@ async function delete_booking(headers) {
     return res;
 }
 
+//POST方法取得order資料
+async function post_order(headers, message) {
+    let response = await fetch("/api/order", {
+        method: "POST",
+        body: JSON.stringify(message),
+        headers: headers
+    });
+    let res = await response.json();
+    return res;
+}
+
 // --------------------------------------------------view--------------------------------------------------
 function show_booking (datas) {
     let hello_name = document.getElementById("hello_name");
@@ -59,13 +116,14 @@ function show_booking (datas) {
     let contact_email = document.getElementById("contact_email");
     let user_phone = document.getElementById("user_phone");
     let total_price_span = document.getElementById("total_price_span");
+    let pay_money_block = document.getElementById("pay_money_block");
 
     hello_name.innerText = datas.name;
-    booking_img.src = datas.data.attarction_image;
-    attraction.innerText = datas.data.attaction_name;
+    booking_img.src = datas.data.attraction_image;
+    attraction.innerText = datas.data.attraction_name;
     date.innerText = datas.date;
-    phone.innerText = datas.data.attaction_tell;
-    address.innerText = datas.data.attaction_address.substring(4, datas.data.attaction_address.length);
+    phone.innerText = datas.data.attraction_tell;
+    address.innerText = datas.data.attraction_address.substring(4, datas.data.attraction_address.length);
     cost.innerText = datas.cost;
     contact_name.placeholder = datas.name;
     contact_email.placeholder = datas.email;
@@ -79,6 +137,47 @@ function show_booking (datas) {
         }
     })
     total_price_span.innerText = datas.cost + "元";
+
+    //確認付款的addEventListener
+    pay_money_block.addEventListener("click", () => {
+        tappay_get_prime(datas, user_phone);
+    })
+
+    //TapPay外觀
+    let fields = {
+        number: {
+            element: "#card-number",
+            placeholder: "**** **** **** ****"
+        },
+        expirationDate: {
+            element: document.getElementById("card-expiration-date"),
+            placeholder: "MM / YY"
+        },
+        ccv: {
+            element: "#card-ccv",
+            placeholder: "ccv"
+        }
+    }
+    
+    let styles = {
+        "input": {
+            "color": "gray"
+        },
+        ":focus": {
+            "color": 'black'
+        },
+        ".valid": {
+            "color": "green"
+        },
+        ".invalid": {
+            "color": "red"
+        }
+    }
+    
+    TPDirect.card.setup({
+        fields: fields,
+        styles: styles
+    })
 }
 
 function show_no_booking(datas) {

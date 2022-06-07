@@ -2,12 +2,14 @@ from flask import Flask, render_template
 from api.attractions import attractions
 from api.members import members
 from api.booking import booking
+from api.order import order
 
 app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
 app.register_blueprint(attractions, url_prefix="/api")
 app.register_blueprint(members, url_prefix="/api")
 app.register_blueprint(booking, url_prefix="/api")
+app.register_blueprint(order, url_prefix="/api")
 
 
 @app.route("/")
@@ -23,6 +25,11 @@ def attaction(attractionId):
 @app.route("/booking")
 def booking():
 	return render_template("booking.html")
+
+
+@app.route("/thankyou")
+def thankyou():
+	return render_template("thankyou.html")
 
 
 if __name__ == "__main__":

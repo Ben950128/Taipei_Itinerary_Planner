@@ -40,9 +40,9 @@ def get_booking():
         records_attraction = cursor.fetchall()
         
         attraction_id = records_attraction[0][0]
-        attaction_name = records_attraction[0][1]
-        attaction_address = records_attraction[0][2]
-        attaction_tell = records_attraction[0][3]
+        attraction_name = records_attraction[0][1]
+        attraction_address = records_attraction[0][2]
+        attraction_tell = records_attraction[0][3]
 
         # 依照booking紀錄select景點照片
         select_image_sql = ("""select Image from images 
@@ -64,10 +64,10 @@ def get_booking():
         response = {
             "data": {
                 "attraction_id": attraction_id,
-                "attaction_name": attaction_name,
-                "attaction_address": attaction_address,
-                "attaction_tell": attaction_tell,
-                "attarction_image": attraction_image
+                "attraction_name": attraction_name,
+                "attraction_address": attraction_address,
+                "attraction_tell": attraction_tell,
+                "attraction_image": attraction_image
             },
             "name": name,
             "username": username,
@@ -77,6 +77,13 @@ def get_booking():
         }
 
         return make_response(response, 200)
+
+    except jwt.exceptions.ExpiredSignatureError:
+        response = {
+            "error": True,
+            "message": "尚未登入系統"
+        }
+        return make_response(response, 403)
 
     except IndexError:
         response = {
@@ -89,9 +96,9 @@ def get_booking():
     except:
         response = {
             "error": True,
-            "message": "尚未登入系統"
+            "message": "伺服器錯誤"
         }
-        return make_response(response, 403)
+        return make_response(response, 500)
     
     finally:
         cursor.close()

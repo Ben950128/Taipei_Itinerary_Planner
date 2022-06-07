@@ -13,7 +13,7 @@ window.addEventListener("load", async () => {
         "Accept": "application/json",
         "Content-Type": "application/json"
     };
-    member_status = await get_member_data(headers);
+    let member_status = await get_member_data(headers);
     if(member_status !== null){
         let name = member_status.name
         login_success(name);                    //若為登入狀態(token未過期)則顯示會員專區
@@ -114,7 +114,7 @@ logout.addEventListener("click", async () => {
         "Accept": "application/json",
         "Content-Type": "application/json"
     };
-    response = await delete_member_data(headers);
+    let response = await delete_member_data(headers);
     if (response.ok === true){
         window.location.href = "/";
     }
