@@ -191,13 +191,24 @@ li:hover {
 
 /* 底部配色 */
 .page_bottom {
-    display: flex; 
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center; 
-    align-items: center;
     background-color: #427bac; 
     width: 100%; 
     height: 100px; 
     color: white;
+}
+#footer_description_1 {
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 20px;
+}
+#footer_description_2 {
+    width: 100%;
+    text-align: center;
+    height: 30px;
 }
 
 @media screen and (max-width:700px){

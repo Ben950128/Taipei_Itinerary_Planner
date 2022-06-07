@@ -91,6 +91,7 @@ CREATE TABLE  `category` (
 describe category;
 select * from category;
 select count(*) from category;
+select * from category order by Category_ID desc limit 1;
 
 select Attraction_ID, Category from category 
 where Attraction_ID in (
@@ -122,6 +123,21 @@ CREATE TABLE  `booking` (
   `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost');
   
 select * from booking where Username = "test" and Attraction_ID = 2261 and Date = "2022-05-29";
+
+select Attraction_ID, Name, Address, Tell from attractions where Attraction_ID in (select Attraction_ID from booking where Username = "test");
+select Image from images where Attraction_ID in (select Attraction_ID from booking where Username = "test") limit 1;
+delete from booking where Username = "test";
 drop table booking;
 
+# 創建預行程表格(已付款)------------------------------------------------------------------------------------------
+CREATE TABLE  `order_tappay` (
+  `Order_ID` VARCHAR(20) NOT NULL COMMENT 'Order_ID' PRIMARY KEY,
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
+  `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
+  `Date` VARCHAR(45) NOT NULL COMMENT 'Date',
+  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost');
 
+select * from order_tappay;
+select Order_ID from order_tappay where Order_ID = '202206070202595';
+drop table order_tappay;
