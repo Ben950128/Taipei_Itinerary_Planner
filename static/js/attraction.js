@@ -62,6 +62,7 @@ async function fetch_data(url) {
     return res;
 }
 
+// 預定行程，post資料給booking
 async function post_booking(headers, message){
     let response = await fetch("/api/booking",{
             method: "POST",

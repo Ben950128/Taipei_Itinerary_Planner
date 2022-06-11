@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
     };
     let member_status = await get_member_data(headers);
     if(member_status !== null){
-        let name = member_status.name
+        let name = member_status.name;
         login_success(name);                    //若為登入狀態(token未過期)則顯示會員專區
     }
 })
@@ -77,7 +77,7 @@ async function member_login() {
 }
 
 // 註冊新帳戶的按鈕addEventListener
-signup_click.addEventListener("click", member_signup)
+signup_click.addEventListener("click", member_signup);
 
 
 // 按下註冊新帳戶按鈕觸發

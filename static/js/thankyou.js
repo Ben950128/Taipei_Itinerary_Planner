@@ -15,6 +15,7 @@ window.addEventListener("load", async () => {
     }
 })
 
+// 取得用戶是否為登入狀態
 async function get_member_data(headers){
     let response = await fetch("/api/members", {
             method: "GET",

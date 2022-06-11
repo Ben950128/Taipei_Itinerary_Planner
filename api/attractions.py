@@ -6,16 +6,21 @@ import math
 
 attractions = Blueprint("attractions", __name__, template_folder="templates")
 load_dotenv()
+MYSQL_DB_HOST = os.getenv('MYSQL_DB_HOST')
+MYSQL_DB_DATABASE = os.getenv('MYSQL_DB_DATABASE')
+MYSQL_DB_USER = os.getenv('MYSQL_DB_USER')
 MYSQL_DB_PASSWORD = os.getenv('MYSQL_DB_PASSWORD')
+
 connection_pool = pooling.MySQLConnectionPool(
     pool_name="mysql_pool",
     pool_size=5,
     pool_reset_session=True,
-    host='localhost',
-    database='taipei_tourism',
-    user='root',
+    host=MYSQL_DB_HOST,
+    database=MYSQL_DB_DATABASE,
+    user=MYSQL_DB_USER,
     password=MYSQL_DB_PASSWORD,
 )
+
 
 # ------------------輸出景點資料------------------
 @attractions.route("/attractions", methods=["GET"])
