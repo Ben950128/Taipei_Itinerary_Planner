@@ -9,22 +9,12 @@ window.addEventListener("load", async () => {
         "Accept": "application/json",
         "Content-Type": "application/json"
     };
+    // get_member_data()為member.js裡的函式
     let member_status = await get_member_data(headers);
     if(member_status === null){
         window.location.href = "/";
     }
 })
-
-// 取得用戶是否為登入狀態
-async function get_member_data(headers){
-    let response = await fetch("/api/members", {
-            method: "GET",
-            headers: headers
-        }
-    );
-    let res = await response.json();
-    return res.data;
-}
 
 continue_booking_click.addEventListener("click", () => {
     window.location.href = "/";

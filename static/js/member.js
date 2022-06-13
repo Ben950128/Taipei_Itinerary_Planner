@@ -5,6 +5,7 @@ let login_password = document.getElementById("login_password");
 let member_area = document.getElementById("member_area");
 let logout = document.getElementById("logout");
 let already_booking = document.getElementById("already_booking");
+let member_only = document.getElementById("member_only");
 
 // --------------------------------------------------control--------------------------------------------------
 // 查看是否為登入狀態
@@ -125,6 +126,10 @@ already_booking.addEventListener("click", () => {
     window.location.href = "/booking";
 })
 
+// 會員選單的會員專區按鈕
+member_only.addEventListener("click", () => {
+    window.location.href = "/memberonly";
+})
 
 // --------------------------------------------------model--------------------------------------------------
 //GET會員狀態

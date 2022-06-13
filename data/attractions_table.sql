@@ -63,7 +63,6 @@ where Attraction_ID in (
 # 創建img表格-------------------------------------------------------------------------------------------
 CREATE TABLE  `images` (
   `Image_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Image_ID' PRIMARY KEY,
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
   `Image` TEXT NOT NULL COMMENT 'Attraction_Image',
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
   FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
@@ -84,7 +83,6 @@ select Attraction_ID from category where category = "單車遊蹤");
 # 創建category表格------------------------------------------------------------------------------------------
 CREATE TABLE  `category` (
   `Category_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Category_ID' PRIMARY KEY,
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Attraction_Name',
   `Category` TEXT NOT NULL COMMENT 'Attraction_Image',
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
   FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
@@ -134,10 +132,15 @@ CREATE TABLE  `order_tappay` (
   `Order_ID` VARCHAR(20) NOT NULL COMMENT 'Order_ID' PRIMARY KEY,
   `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
   `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Contact_Phone` VARCHAR(45) NOT NULL COMMENT 'User_Phone',
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
   `Date` VARCHAR(45) NOT NULL COMMENT 'Date',
-  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost');
+  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost',
+  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 select * from order_tappay;
-select Order_ID from order_tappay where Order_ID = '202206070202595';
+select * from order_tappay o 
+join attractions a on o.Attraction_ID = a.Attraction_ID where Username = "test"
+order by o.Order_ID desc;
+
 drop table order_tappay;
