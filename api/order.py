@@ -41,7 +41,7 @@ def get_order():
         email = decode_token["email"]
         select_order_sql = ("""select O.Order_ID, O.Attraction_ID, A.Name, A.Address, A.Tell, O.Date, O.Cost, O.Contact_Phone from 
                             order_tappay O join attractions A on O.Attraction_ID = A.Attraction_ID
-                            where Username = %s order by o.Order_ID desc""")
+                            where Username = %s order by O.Order_ID desc""")
         select_order_val = (username,)
         cursor.execute(select_order_sql, select_order_val)
         records = cursor.fetchall()
