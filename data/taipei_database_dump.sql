@@ -53,13 +53,16 @@ DROP TABLE IF EXISTS `booking`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booking` (
   `Booking_ID` int NOT NULL AUTO_INCREMENT COMMENT 'Booking_ID',
-  `Username` varchar(45) NOT NULL COMMENT 'Username',
-  `Email` varchar(45) NOT NULL COMMENT 'Email',
+  `Member_ID` int NOT NULL COMMENT 'Member_ID',
   `Attraction_ID` int NOT NULL COMMENT 'Attraction_ID',
   `Date` varchar(45) NOT NULL COMMENT 'Date',
   `Cost` varchar(45) NOT NULL COMMENT 'Cost',
-  PRIMARY KEY (`Booking_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`Booking_ID`),
+  KEY `Member_ID` (`Member_ID`),
+  KEY `Attraction_ID` (`Attraction_ID`),
+  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`Member_ID`) REFERENCES `member` (`Member_ID`) ON DELETE CASCADE,
+  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`Attraction_ID`) REFERENCES `attractions` (`Attraction_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +71,6 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (13,'11111','111@fff.fff',2261,'2022-06-29','500');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +198,7 @@ CREATE TABLE `member` (
   `Email` varchar(45) NOT NULL COMMENT 'Email',
   `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Member_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +207,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'Ben','test','test','test@gmail.cpm','2022-05-22 16:33:28'),(2,'Ben','test123','test123','test123@asfsa.com','2022-05-23 00:36:36'),(3,'test','test123123','test123','test123@gmail.com','2022-05-23 16:57:22'),(4,'Ben','111','111','111@gmail.com','2022-05-27 16:47:31'),(5,'Ben','123','123','123@gmail.com','2022-05-27 21:57:02'),(6,'esa','dwecdw','wedcwe','wedcqw@gmail.com','2022-05-27 21:58:11'),(7,'wecfqadc','wedcfewfc','wecfeqwf','ewqwa@fsvd.rgbfv','2022-05-27 21:59:05'),(8,'ewcd','dwsc','ewdc','ewcfa@efvsd.bgrvfe','2022-05-27 21:59:55'),(9,'swdecwe','wecqaw','wecewq','weef@wsdv.rtefds','2022-05-27 22:01:44'),(10,'url_id','select_datevalue','select_travelers','sada@com.te','2022-05-28 01:33:55'),(11,'123','51651','5616165','dcw@DynamicsCom.ass','2022-05-28 02:08:35'),(12,'哈哈哈哈哈哈哈哈','haha','haha','haha@haha.haha','2022-05-28 15:00:12'),(13,'四個字','four','four','four@four.com','2022-05-28 15:02:30'),(14,'CHIU, TZU-HSUAN','Ben','Ben','Ben@Ben.Ben','2022-05-28 15:04:32'),(15,'衝衝衝','gogo','gogo','gogo@gogo.gogo','2022-05-29 00:25:46'),(16,'邱子軒','123123','123','123@ddd.xx','2022-05-29 00:32:43'),(17,'dddddd','ddd','ddd','ddd@ddd.ddd','2022-05-29 00:33:07'),(18,'Dee','Dee','Dee','Dee@ddd.esw','2022-05-29 00:33:43'),(19,'Deee','Deee','Deee','Deee@Deee.Deee','2022-05-29 00:34:15'),(20,'123456789','123456789','123456789','1234567489@zzz.zzz','2022-05-29 11:53:01'),(21,'子軒','two','two','two@two.ww','2022-05-29 11:59:01'),(22,'sdacs','dvsdv','advad','sacd@rfs.fd','2022-06-01 19:54:37'),(23,'aaaaa','aaaaa','aaaaa','aaaaa@aaa.aa','2022-06-02 11:16:16'),(24,'qqqqq','qqqqq','qqqqq','qqqqq@qq.qq','2022-06-02 11:17:10'),(25,'wwww','wwww','wwww','wwww@ww.ww','2022-06-02 11:18:09'),(26,'喔喔喔','11111','11111','111@fff.fff','2022-06-03 12:41:09');
+INSERT INTO `member` VALUES (1,'test','test','test','test@gmail.com','2022-06-19 10:05:40');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,14 +220,17 @@ DROP TABLE IF EXISTS `order_tappay`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_tappay` (
   `Order_ID` varchar(20) NOT NULL COMMENT 'Order_ID',
-  `Username` varchar(45) NOT NULL COMMENT 'Username',
-  `Email` varchar(45) NOT NULL COMMENT 'Email',
+  `Member_ID` int NOT NULL COMMENT 'Member_ID',
   `Contact_Phone` varchar(45) NOT NULL COMMENT 'User_Phone',
   `Attraction_ID` int NOT NULL COMMENT 'Attraction_ID',
   `Date` varchar(45) NOT NULL COMMENT 'Date',
   `Cost` varchar(45) NOT NULL COMMENT 'Cost',
   `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`Order_ID`)
+  PRIMARY KEY (`Order_ID`),
+  KEY `Member_ID` (`Member_ID`),
+  KEY `Attraction_ID` (`Attraction_ID`),
+  CONSTRAINT `order_tappay_ibfk_1` FOREIGN KEY (`Member_ID`) REFERENCES `member` (`Member_ID`) ON DELETE CASCADE,
+  CONSTRAINT `order_tappay_ibfk_2` FOREIGN KEY (`Attraction_ID`) REFERENCES `attractions` (`Attraction_ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,7 +240,7 @@ CREATE TABLE `order_tappay` (
 
 LOCK TABLES `order_tappay` WRITE;
 /*!40000 ALTER TABLE `order_tappay` DISABLE KEYS */;
-INSERT INTO `order_tappay` VALUES ('202206132303271','test','test@gmail.cpm','0912345678',2261,'2022-06-22','300','2022-06-13 23:03:28'),('202206132303591','test','test@gmail.cpm','0912345678',2576,'2022-06-29','500','2022-06-13 23:04:00');
+INSERT INTO `order_tappay` VALUES ('202206191022311',1,'0912345678',1728,'2022-06-23','300','2022-06-19 10:22:33'),('202206191023261',1,'0912345678',1809,'2022-06-23','400','2022-06-19 10:23:27');
 /*!40000 ALTER TABLE `order_tappay` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -248,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-14  0:22:59
+-- Dump completed on 2022-06-19 10:28:25
