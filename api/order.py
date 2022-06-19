@@ -37,12 +37,12 @@ def get_order():
         Token = request.cookies.get('Token')
         decode_token = jwt.decode(Token, SECRET_KEY, algorithms="HS256")
         name = decode_token["name"]
-        username = decode_token["username"]
+        member_id = decode_token["member_id"]
         email = decode_token["email"]
         select_order_sql = ("""select O.Order_ID, O.Attraction_ID, A.Name, A.Address, A.Tell, O.Date, O.Cost, O.Contact_Phone from 
                             order_tappay O join attractions A on O.Attraction_ID = A.Attraction_ID
-                            where Username = %s order by O.Order_ID desc""")
-        select_order_val = (username,)
+                            where Member_id = %s order by O.Order_ID desc""")
+        select_order_val = (member_id,)
         cursor.execute(select_order_sql, select_order_val)
         records = cursor.fetchall()
         if records != []:
@@ -114,10 +114,9 @@ def post_to_tappay():
         email = request_json["order"]["contact"]["email"]
         date = request_json["order"]["trip"]["date"]
         attraction_id = request_json["order"]["trip"]["attraction"]["id"]
-        username = decode_token["username"]
+        member_id = decode_token["member_id"]
         datetime_now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-        member_id = str(decode_token["member_id"])
-        order_id = datetime_now + member_id
+        order_id = datetime_now + str(member_id)
         datas = {
             "prime": prime,
             "partner_key": PARTNER_KEY,
@@ -136,9 +135,9 @@ def post_to_tappay():
         tappay_response_dict = json.loads(tappay_response.text)
         
         if tappay_response_dict["status"] == 0:
-            insert_sql = """insert into order_tappay(Order_ID, Username, Email, Contact_Phone, Attraction_ID, Date, Cost) 
-                            values(%s, %s, %s, %s, %s, %s, %s)"""
-            insert_val = (order_id, username, email, phone_number, attraction_id, date, cost)
+            insert_sql = """insert into order_tappay(Order_ID, Member_id, Contact_Phone, Attraction_ID, Date, Cost) 
+                            values(%s, %s, %s, %s, %s, %s)"""
+            insert_val = (order_id, member_id, phone_number, attraction_id, date, cost)
             cursor.execute(insert_sql, insert_val)
             response = {
                 "order_number": order_id,

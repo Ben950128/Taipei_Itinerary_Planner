@@ -30,6 +30,7 @@ def get_booking():
     try: 
         Token = request.cookies.get('Token')
         decode_token = jwt.decode(Token, SECRET_KEY, algorithms="HS256")
+        member_id = decode_token["member_id"]
         username = decode_token["username"]
         name = decode_token["name"]
         email = decode_token["email"]
@@ -37,8 +38,8 @@ def get_booking():
         # 依照booking紀錄select景點資料
         select_attraction_sql = ("""select Attraction_ID, Name, Address, Tell from attractions 
                                     where Attraction_ID in 
-                                    (select Attraction_ID from booking where Username = %s)""")
-        select_attraction_val = (username,)
+                                    (select Attraction_ID from booking where Member_ID = %s)""")
+        select_attraction_val = (member_id,)
         cursor.execute(select_attraction_sql, select_attraction_val)
         records_attraction = cursor.fetchall()
         
@@ -50,15 +51,15 @@ def get_booking():
         # 依照booking紀錄select景點照片
         select_image_sql = ("""select Image from images 
                                 where Attraction_ID in 
-                                (select Attraction_ID from booking where Username = %s) limit 1""")
-        select_image_val = (username,)
+                                (select Attraction_ID from booking where Member_ID = %s) limit 1""")
+        select_image_val = (member_id,)
         cursor.execute(select_image_sql, select_image_val)
         records_image = cursor.fetchall()
         attraction_image = records_image[0][0]
 
         # select該帳號booking資訊
-        select_booking_sql = ("select Date, Cost from booking where Username = %s")
-        select_booking_val = (username,)
+        select_booking_sql = ("select Date, Cost from booking where Member_ID = %s")
+        select_booking_val = (member_id,)
         cursor.execute(select_booking_sql, select_booking_val)
         records_booking = cursor.fetchall()
         booking_date = records_booking[0][0]
@@ -117,25 +118,24 @@ def post_booking():
         request_json = request.get_json()
         Token = request.cookies.get('Token')
         decode_token = jwt.decode(Token, SECRET_KEY, algorithms="HS256")
-        username = decode_token["username"]
-        email = decode_token["email"]
+        member_id = decode_token["member_id"]
         attraction_id = request_json["Attraction_ID"]
         date = request_json["Date"]
         cost = request_json["Cost"]
 
-        select_sql = ("select Attraction_ID, Date, Cost from booking where Username = %s")
-        select_val = (username,)
+        select_sql = ("select Attraction_ID, Date, Cost from booking where Member_ID = %s")
+        select_val = (member_id,)
         cursor.execute(select_sql, select_val)
         records_booking = cursor.fetchall()
         
         if records_booking != []:
-            update_sql = ("update booking set Attraction_ID = %s, Date = %s, Cost = %s where Username = %s")
-            update_val = (attraction_id, date, cost, username)
+            update_sql = ("update booking set Attraction_ID = %s, Date = %s, Cost = %s where Member_ID = %s")
+            update_val = (attraction_id, date, cost, member_id)
             cursor.execute(update_sql, update_val)
 
         else:
-            insert_sql = "insert into booking(Username, Email, Attraction_ID, Date, Cost) values(%s, %s, %s, %s, %s)"
-            insert_val = (username, email, attraction_id, date, cost)
+            insert_sql = "insert into booking(Member_ID, Attraction_ID, Date, Cost) values(%s, %s, %s, %s)"
+            insert_val = (member_id, attraction_id, date, cost)
             cursor.execute(insert_sql, insert_val)
             
         response = {
@@ -171,10 +171,10 @@ def delete_booking():
     try: 
         Token = request.cookies.get('Token')
         decode_token = jwt.decode(Token, SECRET_KEY, algorithms="HS256")
-        username = decode_token["username"]
+        member_id = decode_token["member_id"]
         name = decode_token["name"]
-        delete_sql = ("delete from booking where Username = %s ")
-        delete_val = (username,)
+        delete_sql = ("delete from booking where Member_ID = %s ")
+        delete_val = (member_id,)
         cursor.execute(delete_sql, delete_val)
         response = {
             "ok": True,

@@ -114,33 +114,27 @@ select * from member where Username = "test" and Password = "test";
 # 創建預定行程表格(未付款)------------------------------------------------------------------------------------------
 CREATE TABLE  `booking` (
   `Booking_ID` INT NOT NULL AUTO_INCREMENT COMMENT 'Booking_ID' PRIMARY KEY,
-  `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
-  `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Member_ID` INT NOT NULL COMMENT 'Member_ID',
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
   `Date` VARCHAR(45) NOT NULL COMMENT 'Date',
-  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost');
-  
-select * from booking where Username = "test" and Attraction_ID = 2261 and Date = "2022-05-29";
+  `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost',
+  FOREIGN KEY(`Member_ID`)  REFERENCES `member`(`Member_ID`) ON DELETE CASCADE,
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 
-select Attraction_ID, Name, Address, Tell from attractions where Attraction_ID in (select Attraction_ID from booking where Username = "test");
-select Image from images where Attraction_ID in (select Attraction_ID from booking where Username = "test") limit 1;
-delete from booking where Username = "test";
+select * from booking;
 drop table booking;
 
 # 創建預行程表格(已付款)------------------------------------------------------------------------------------------
 CREATE TABLE  `order_tappay` (
   `Order_ID` VARCHAR(20) NOT NULL COMMENT 'Order_ID' PRIMARY KEY,
-  `Username` VARCHAR(45) NOT NULL COMMENT 'Username',
-  `Email` VARCHAR(45) NOT NULL COMMENT 'Email',
+  `Member_ID` INT NOT NULL COMMENT 'Member_ID',
   `Contact_Phone` VARCHAR(45) NOT NULL COMMENT 'User_Phone',
   `Attraction_ID` INT NOT NULL COMMENT 'Attraction_ID',
   `Date` VARCHAR(45) NOT NULL COMMENT 'Date',
   `Cost` VARCHAR(45) NOT NULL COMMENT 'Cost',
-  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
+  `Time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(`Member_ID`)  REFERENCES `member`(`Member_ID`) ON DELETE CASCADE,
+  FOREIGN KEY(`Attraction_ID`)  REFERENCES `attractions`(`Attraction_ID`) ON DELETE CASCADE);
 
 select * from order_tappay;
-select * from order_tappay o 
-join attractions a on o.Attraction_ID = a.Attraction_ID where Username = "test"
-order by o.Order_ID desc;
-
 drop table order_tappay;
